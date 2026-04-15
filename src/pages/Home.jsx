@@ -3693,7 +3693,6 @@ const Home = () => {
                         </div>
                     </section>
                     {/* <!-- End partner --> */}
-
                     <Footer />
                 </div >
             </div >

@@ -961,7 +961,7 @@ label {
 .main-header {
   z-index: 999;
   width: 100%;
-  height: 78px;
+  height: 90px;
   position: relative;
   background-color: #ffffff;
   padding-left: 15px;
@@ -1136,6 +1136,11 @@ label {
 .main-header .logo-box .logo img {
   display: inline-block;
   max-width: 100%;
+  width: 150px;
+  height: 75px;
+  object-fit: contain;
+  margin-top: 4px;
+  object-fit: contain;
   -webkit-transition: all 300ms ease;
   -ms-transition: all 300ms ease;
   -o-transition: all 300ms ease;
@@ -1186,6 +1191,7 @@ label {
 
 .main-header .header-lower .main-menu .navigation {
   position: relative;
+  margin-bottom: -10px;
 }
 
 .main-header .main-menu .navigation>li {
