@@ -9315,6 +9315,7 @@ label {
 
 .flat-account {
   display: flex;
+  height: 670px
 }
 
 .flat-account .banner-account {
@@ -9331,7 +9332,7 @@ label {
 
 .flat-account .form-account {
   flex-grow: 1;
-  padding: 40px;
+  padding: 24px;
 }
 
 .flat-account .form-account .box:not(:last-child) {
@@ -12293,6 +12294,7 @@ tr {
 
   .flat-account {
     display: flex;
+
   }
 
   .flat-account .banner-account {
