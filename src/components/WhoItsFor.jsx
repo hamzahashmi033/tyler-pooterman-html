@@ -1,5 +1,6 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
+import { Autoplay } from "swiper/modules";
 
 const WhoItsFor = () => {
     const teamMembers = [
@@ -86,7 +87,12 @@ const WhoItsFor = () => {
                         </div>
                         <div className="col-md-7">
                             <Swiper
+                                modules={[Autoplay]}
                                 spaceBetween={20}
+                                autoplay={{
+                                    delay: 2500, // 2.5 sec baad slide change
+                                    disableOnInteraction: false,
+                                }}
                                 slidesPerView={2.3}
                                 breakpoints={{
                                     320: { slidesPerView: 1.5 },
