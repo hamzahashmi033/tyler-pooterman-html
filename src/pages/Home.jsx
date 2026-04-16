@@ -6,6 +6,7 @@ import { initShortcodes } from "../js/shortcodes";
 import { initCarousels } from "../js/carousel";
 import { initRangeSliders } from "../js/rangle-slider";
 import { initAnimationHeading } from "../js/animation_heading";
+import PropertySection from "../components/PropertySection";
 
 const Home = () => {
     useEffect(() => {
@@ -38,15 +39,16 @@ const Home = () => {
                                 <div className="col-xl-10">
                                     <div className="slider-content">
                                         <div className="heading">
-                                            <h1 className="fw-8 title animationtext clip">Find A Home That
+                                            <h1 className="fw-8 title animationtext clip">
+                                                Verified Property Service
                                                 <br />
                                                 <span className="tf-text s1 cd-words-wrapper">
-                                                    <span className="item-text is-visible">Fits Perfectly</span>
-                                                    <span className="item-text is-hidden">Fits Dream Home</span>
+                                                    <span className="item-text is-visible">History All in One Place</span>
+                                                    <span className="item-text is-hidden">Easy Management</span>
+                                                    <span className="item-text is-hidden">Trusted Listings</span>
                                                 </span>
                                             </h1>
-                                            <p className="subtitle body-2 wow fadeInUp" data-wow-delay=".2s">We are a real estate agency that will help you find the best <br />
-                                                residence you dream of.</p>
+                                            <p className="subtitle body-2 wow fadeInUp" data-wow-delay=".2s">Track, manage, and access complete property service <br /> records securely and transparently.</p>
                                         </div>
                                         <div className="flat-tab flat-tab-form">
                                             <ul className="nav-tab-form style-2" role="tablist">
@@ -382,7 +384,7 @@ const Home = () => {
                     </section >
                     {/* <!-- End Slider --> */}
                     {/* <!-- Categories --> */}
-                    <section className="flat-section flat-categories">
+                    {/* <section className="flat-section flat-categories">
                         <div className="container">
                             <div className="box-title style-1 wow fadeInUp">
                                 <div className="text-subtitle text-primary">Property Type</div>
@@ -397,8 +399,7 @@ const Home = () => {
                                                     <span className="icon icon-apartment1"></span>
                                                 </div>
                                                 <div className="content text-center">
-                                                    <h6>Apartment</h6>
-                                                    <p className="mt-4 text-variant-1">234 Property</p>
+                                                    <h6>Plumbing</h6>
                                                 </div>
                                             </a>
                                         </div>
@@ -408,8 +409,7 @@ const Home = () => {
                                                     <span className="icon icon-villa-line"></span>
                                                 </div>
                                                 <div className="content text-center">
-                                                    <h6>Villa</h6>
-                                                    <p className="mt-4 text-variant-1">234 Property</p>
+                                                    <h6>HVAC</h6>
                                                 </div>
                                             </a>
                                         </div>
@@ -419,8 +419,7 @@ const Home = () => {
                                                     <span className="icon icon-studio"></span>
                                                 </div>
                                                 <div className="content text-center">
-                                                    <h6>Studio</h6>
-                                                    <p className="mt-4 text-variant-1">234 Property</p>
+                                                    <h6>Electrical</h6>
                                                 </div>
                                             </a>
                                         </div>
@@ -430,8 +429,7 @@ const Home = () => {
                                                     <p className="icon icon-office1"></p>
                                                 </div>
                                                 <div className="content text-center">
-                                                    <h6>Office</h6>
-                                                    <p className="mt-4 text-variant-1">234 Property</p>
+                                                    <h6>Roofing</h6>
                                                 </div>
                                             </a>
                                         </div>
@@ -441,8 +439,7 @@ const Home = () => {
                                                     <p className="icon icon-townhouse"></p>
                                                 </div>
                                                 <div className="content text-center">
-                                                    <h6>Townhouse</h6>
-                                                    <p className="mt-4 text-variant-1">234 Property</p>
+                                                    <h6>Repairs</h6>
                                                 </div>
                                             </a>
                                         </div>
@@ -452,8 +449,7 @@ const Home = () => {
                                                     <span className="icon icon-commercial"></span>
                                                 </div>
                                                 <div className="content text-center">
-                                                    <h6>Commercial</h6>
-                                                    <p className="mt-4 text-variant-1">234 Property</p>
+                                                    <h6>Maintenance</h6>
                                                 </div>
                                             </a>
                                         </div>
@@ -462,8 +458,9 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> */}
                     {/* <!-- End Categories --> */}
+                    <PropertySection />
                     {/* <!-- Recommended --> */}
                     <section className="flat-section flat-recommended pt-0">
                         <div className="container">
