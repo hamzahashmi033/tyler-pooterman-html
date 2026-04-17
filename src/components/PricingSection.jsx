@@ -382,7 +382,7 @@ const PricingSection = () => (
                     </div>
 
                     <div style={{ display: "flex", gap: "12px", flexShrink: 0, flexWrap: "wrap" }}>
-                        <a href="#" style={{
+                        <a href="/contact-us" style={{
                             padding: "12px 26px", background: C.primary,
                             borderRadius: "10px", color: "#fff",
                             fontWeight: "700", fontSize: "14px",

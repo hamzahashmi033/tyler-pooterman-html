@@ -179,8 +179,8 @@ const Footer = () => {
                                 </p>
                             </div>
                             <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                                <a href="#" className="footer-cta-btn-primary">Claim Your Property →</a>
-                                <a href="#" className="footer-cta-btn-outline">Unlock a Report — $30</a>
+                                <a href="/contact-us" className="footer-cta-btn-primary">Claim Your Property →</a>
+                                <a href="/contact-us" className="footer-cta-btn-outline">Unlock a Report — $30</a>
                             </div>
                         </div>
 

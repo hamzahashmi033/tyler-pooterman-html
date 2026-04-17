@@ -35,16 +35,11 @@ const Header = () => {
                                                     <li className={navClass("home", "/how-it-works")}>
                                                         <Link to="/how-it-works">How It Works</Link>
                                                     </li>
-                                                    <li className={navClass("pricing", "/pricing")}>
+                                                    <li className={navClass("home", "/pricing")}>
                                                         <Link to="/pricing">Pricing</Link>
                                                     </li>
-                                                    <li className="dropdown2"><a href="#">Features</a>
-                                                        <ul>
-                                                            <li><a href="#">Service history system</a></li>
-                                                            <li><a href="#">Reports</a></li>
-                                                            <li><a href="#">Smart forms</a></li>
-                                                            <li><a href="#">Dashboard</a></li>
-                                                        </ul>
+                                                    <li className={navClass("home", "/features")}>
+                                                        <Link to="/features">Features</Link>
                                                     </li>
                                                     {/* <li className={navClass("dropdown2", "/pricing")}><Link to="/pricing">Pricing</Link>
                                                         <ul>

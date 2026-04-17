@@ -68,6 +68,7 @@ const HowItWorks = () => {
                         <div className="breadcrumb-content">
                             <ul className="breadcrumb">
                                 <li><a href="/" className="text-white">Home</a></li>
+                                
                                 <li className="text-white">/ How It Works</li>
                             </ul>
                             <h1 className="text-center text-white title">How It Works</h1>

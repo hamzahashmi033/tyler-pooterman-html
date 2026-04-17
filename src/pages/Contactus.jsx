@@ -285,8 +285,8 @@ const Contactus = () => {
                                     <div className="text-subtitle text-primary">Become Partners</div>
                                     <h3 className="mt-4 fw-8">List your Properties on Homelengo, join Us Now!</h3>
                                 </div>
-                                <a href="contact.html" className="tf-btn btn-view primary size-1 hover-btn-view">
-                                    Become A Hosting <span className="icon icon-arrow-right2"></span>
+                                <a href="/" className="tf-btn btn-view primary size-1 hover-btn-view">
+                                    Become A Hssssssssosting <span className="icon icon-arrow-right2"></span>
                                 </a>
                             </div>
                             <div className="box-right">
