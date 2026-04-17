@@ -307,7 +307,7 @@ const Footer = () => {
                                 </div>
                                 <div>
                                     <div style={{ fontSize: "11px", fontWeight: "700", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "3px" }}>Address</div>
-                                    <div style={{ fontSize: "13.5px", color: "#fff", lineHeight: "1.5" }}>101 E 129th St, East Chicago, IN 46312, US</div>
+                                    <div style={{ fontSize: "13.5px", color: "#fff", lineHeight: "1.5" }}>Address Here</div>
                                 </div>
                             </div>
 
@@ -321,7 +321,7 @@ const Footer = () => {
                                     <a href="tel:1-333-345-6868" style={{ fontSize: "13.5px", color: "#fff", textDecoration: "none", transition: "color 0.15s" }}
                                         onMouseEnter={e => e.currentTarget.style.color = "#6ba3ff"}
                                         onMouseLeave={e => e.currentTarget.style.color = "#fff"}
-                                    >1-333-345-6868</a>
+                                    >+1928-899-5100</a>
                                 </div>
                             </div>
 
@@ -332,7 +332,7 @@ const Footer = () => {
                                 </div>
                                 <div>
                                     <div style={{ fontSize: "11px", fontWeight: "700", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "3px" }}>Email</div>
-                                    <div style={{ fontSize: "13.5px", color: "#fff" }}>themesflat@gmail.com</div>
+                                    <div style={{ fontSize: "13.5px", color: "#fff" }}>tech.sitescouter@gmail.com</div>
                                 </div>
                             </div>
 

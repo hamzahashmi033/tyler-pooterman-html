@@ -1,31 +1,9 @@
 import { useEffect } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
-import { initMain } from "../js/main";
-import { initShortcodes } from "../js/shortcodes";
-import { initCarousels } from "../js/carousel";
-import { initRangeSliders } from "../js/rangle-slider";
-import { initAnimationHeading } from "../js/animation_heading";
 
 const Contactus = () => {
-    useEffect(() => {
-        if (window.jQuery) {
-            const $ = window.jQuery;
-            try {
-                initMain($);
-                initShortcodes($);
-                initCarousels($);
-                initRangeSliders($);
-                initAnimationHeading($);
-            } catch (err) {
-                console.error("Plugin initialization error:", err);
-            }
-        }
-
-        if (window.WOW) {
-            new window.WOW().init();
-        }
-    }, []);
+ 
 
     return (
         <>
@@ -140,13 +118,13 @@ const Contactus = () => {
                                         <li className="box">
                                             <h6 className="title">Address:</h6>
                                             <p className="text-variant-1">
-                                                101 E 129th St, East Chicago, IN 46312<br />United States
+                                               Address Here
                                             </p>
                                         </li>
                                         <li className="box">
                                             <h6 className="title">Infomation:</h6>
                                             <p className="text-variant-1">
-                                                1-333-345-6868 <br /> hi.themesflat@gmail.com
+                                                +1928-899-5100 <br /> tech.sitescouter@gmail.com
                                             </p>
                                         </li>
                                         <li className="box">

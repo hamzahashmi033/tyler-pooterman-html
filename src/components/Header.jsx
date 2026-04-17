@@ -168,7 +168,7 @@ const Header = () => {
                                 </div>
                                 <div className="box d-flex align-items-center">
                                     <span className="icon icon-mail"></span>
-                                    <div>themesflat@gmail.com</div>
+                                    <div>dummy@gmail.com</div>
                                 </div>
                             </div>
                         </div>
