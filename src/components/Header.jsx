@@ -25,10 +25,10 @@ const Header = () => {
                                             <div className="navbar-collapse collapse clearfix" id="navbarSupportedContent">
                                                 <ul className="navigation clearfix">
                                                     <li className="home current">
-                                                        <a href="#">Home</a>
+                                                        <a href="/">Home</a>
                                                     </li>
                                                     <li className="home">
-                                                        <a href="#">How It Works</a>
+                                                        <a href="/how-it-works">How It Works</a>
                                                     </li>
                                                     <li className="dropdown2"><a href="#">Features</a>
                                                         <ul>
