@@ -64,7 +64,7 @@ const Home = () => {
 
                     <PricingSection />
 
-                    <section className="flat-section bg-primary-new flat-testimonial">
+                    {/* <section className="flat-section bg-primary-new flat-testimonial">
                         <div className="box-title px-15" data-animate="up">
                             <div className="text-center wow fadeInUp">
                                 <div className="text-subtitle text-primary">Real User Reviews</div>
@@ -534,7 +534,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> */}
 
                     <Footer />
                 </div >
