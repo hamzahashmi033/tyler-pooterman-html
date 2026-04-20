@@ -11,12 +11,12 @@ const SignInModal = () => {
                             <div className="banner-account">
                                 <img src="https://homelengo.vercel.app/images/banner/banner-account1.jpg" alt="banner" />
                             </div>
-                            <form className="form-account">
-                                <div className="title-box">
+                            <form className="form-account d-flex align-items-center justify-content-between flex-column">
+                                <div className="title-box w-100">
                                     <h4>Login</h4>
                                     <span className="close-modal icon-close2" data-bs-dismiss="modal"></span>
                                 </div>
-                                <div className="box">
+                                <div className="box w-100">
                                     <fieldset className="box-fieldset">
                                         <label>Account</label>
                                         <div className="ip-field">
@@ -34,12 +34,12 @@ const SignInModal = () => {
                                             </svg>
                                             <input type="text" className="form-control" placeholder="Your password" />
                                         </div>
-                                        <div className="text-forgot text-end"><a href="#">Forgot password</a></div>
+                                        <div className="text-forgot text-end"><a href="#modalForgotPassword" data-bs-toggle="modal" data-bs-dismiss="modal">Forgot password</a></div>
 
                                     </fieldset>
+                                    <a href="/dashboard" className="tf-btn primary w-100">Login</a>
                                 </div>
-                                <div className="box box-btn">
-                                    <a href="dashboard.html" className="tf-btn primary w-100">Login</a>
+                                <div className="box box-btn w-100">
                                     <div className="text text-center">Don’t you have an account? <a href="#modalRegister" data-bs-toggle="modal" className="text-primary">Register</a></div>
                                 </div>
                                 {/* <p className="box text-center caption-2">or login with</p>

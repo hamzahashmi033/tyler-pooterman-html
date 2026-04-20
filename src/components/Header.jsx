@@ -1,6 +1,8 @@
 import SignInModal from "../components/Modals/SignInModal";
 import SignUpModal from "../components/Modals/SignUpModal";
 import { Link, useLocation } from "react-router-dom";
+import ForgetModal from "./Modals/ForgetModal";
+import OtpModal from "./Modals/OtpModal";
 
 const Header = () => {
     const { pathname } = useLocation();
@@ -178,6 +180,8 @@ const Header = () => {
 
                 <SignInModal />
                 <SignUpModal />
+                <ForgetModal />
+                <OtpModal />
             </header>
             {/* End Main Header */}
         </>

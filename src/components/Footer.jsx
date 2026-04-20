@@ -153,7 +153,6 @@ const Footer = () => {
             <footer className="footer-new">
                 <div className="footer-inner">
                     <div className="container" style={{ paddingTop: "72px" }}>
-
                         {/* ── CTA Strip ── */}
                         <div data-animate="up" className="footer-cta-strip">
                             <div>
@@ -351,12 +350,11 @@ const Footer = () => {
                                 ©2026 Site Scouter. All Rights Reserved.
                             </div>
                             <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
-                                <a href="our-service.html" className="footer-bottom-link">Terms Of Services</a>
-                                <a href="pricing.html" className="footer-bottom-link">Privacy Policy</a>
-                                <a href="contact.html" className="footer-bottom-link">Cookie Policy</a>
+                                <a href="#" className="footer-bottom-link">Terms Of Services</a>
+                                <a href="#" className="footer-bottom-link">Privacy Policy</a>
+                                <a href="#" className="footer-bottom-link">Cookie Policy</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </footer>
