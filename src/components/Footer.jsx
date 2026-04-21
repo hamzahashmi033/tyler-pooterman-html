@@ -331,7 +331,7 @@ const Footer = () => {
                                 </div>
                                 <div>
                                     <div style={{ fontSize: "11px", fontWeight: "700", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "3px" }}>Email</div>
-                                    <div style={{ fontSize: "13.5px", color: "#fff" }}>tech.sitescouter@gmail.com</div>
+                                    <div style={{ fontSize: "13.5px", color: "#fff" }}>info@sitescouter.com</div>
                                 </div>
                             </div>
 
