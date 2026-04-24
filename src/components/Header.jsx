@@ -10,11 +10,11 @@ import { Button, Dropdown } from 'antd';
 const Header = () => {
     const items = [
         {
-            key: '1',
-            icon: <ToolOutlined style={{ color: "#1563df", fontSize: "18px" }} />,
+            key: '3',
+            icon: <HomeOutlined style={{ color: "#1563df", fontSize: "18px" }} />,
             label: (
-                <a href="service-professionals" style={{ fontSize: "14px", fontFamily: "Manrope, sans-serif" }}>
-                    Service Professional
+                <a href="/home-owners" style={{ fontSize: "14px", fontFamily: "Manrope, sans-serif" }}>
+                    Homeowner
                 </a>
             ),
         },
@@ -28,11 +28,11 @@ const Header = () => {
             ),
         },
         {
-            key: '3',
-            icon: <HomeOutlined style={{ color: "#1563df", fontSize: "18px" }} />,
+            key: '1',
+            icon: <ToolOutlined style={{ color: "#1563df", fontSize: "18px" }} />,
             label: (
-                <a href="/home-owners" style={{ fontSize: "14px", fontFamily: "Manrope, sans-serif" }}>
-                    Homeowner
+                <a href="service-professionals" style={{ fontSize: "14px", fontFamily: "Manrope, sans-serif" }}>
+                    Service Professional
                 </a>
             ),
         },
