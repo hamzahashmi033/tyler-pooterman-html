@@ -1,5 +1,10 @@
 import { useState, useEffect } from "react";
 import { playHeroEntrance } from "../animations";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const C = {
     bg: "#0b1628",
@@ -40,11 +45,81 @@ const HeroSection = () => {
     const [activeTab, setActiveTab] = useState("search");
     const [searchValue, setSearchValue] = useState("");
 
+
+
+
+    const data = [
+        {
+            image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
+            address: "142 Maple Avenue, Austin TX",
+            score: 96,
+            basedOn: "Based on 4 verified service records",
+            updated: "Apr 2024",
+            price: 30,
+            timeline: [
+                {
+                    icon: "🛠️",
+                    service: "HVAC Full Service",
+                    provider: "CoolAir Pro",
+                    date: "Mar 2024"
+                },
+                {
+                    icon: "⚡",
+                    service: "Electrical Panel Upgrade",
+                    provider: "WireRight LLC",
+                    date: "Nov 2023"
+                }
+            ]
+        },
+        {
+            image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
+            address: "55 Sunset Blvd, Phoenix AZ",
+            score: 92,
+            basedOn: "Based on 6 verified service records",
+            updated: "Jan 2025",
+            price: 40,
+            timeline: [
+                {
+                    icon: "🏠",
+                    service: "Roof Inspection",
+                    provider: "TopRoof Inc",
+                    date: "Dec 2024"
+                },
+                {
+                    icon: "🏠",
+                    service: "Roof Inspection",
+                    provider: "TopRoof Inc",
+                    date: "Dec 2024"
+                }
+            ]
+        }
+    ];
+
+
+
+// Arrow Style (clean + overlay)
+const arrowStyle = (position) => ({
+  position: "absolute",
+  top: "55%",
+  transform: "translateY(-50%)",
+  [position]: "-20px",
+  zIndex: 10,
+  background: "#fff",
+  border: "1px solid #ddd",
+  borderRadius: "50%",
+  width: "36px",
+  height: "36px",
+  cursor: "pointer",
+  boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+});
+
+
+
     const timelineItems = [
         { icon: "🔧", service: "HVAC Full Service", provider: "CoolAir Pro", date: "Mar 2024" },
         { icon: "⚡", service: "Electrical Panel Upgrade", provider: "WireRight LLC", date: "Nov 2023" },
-        { icon: "🏠", service: "Roof Inspection & Repair", provider: "TopGuard Roofing", date: "Jun 2023" },
-        { icon: "💧", service: "Plumbing System Check", provider: "FlowMaster Plumbing", date: "Jan 2023" },
+        // { icon: "🏠", service: "Roof Inspection & Repair", provider: "TopGuard Roofing", date: "Jun 2023" },
+        // { icon: "💧", service: "Plumbing System Check", provider: "FlowMaster Plumbing", date: "Jan 2023" },
     ];
 
     const stats = [
@@ -59,12 +134,15 @@ const HeroSection = () => {
         { icon: "🛠️", label: "Service Provider", desc: "Log & manage your work" },
     ];
 
+
     const strip = [...heroProperties, ...heroProperties];
 
     useEffect(() => {
         const tl = playHeroEntrance();
         return () => tl.kill();
     }, []);
+
+
 
     return (
         <section style={{
@@ -317,128 +395,191 @@ const HeroSection = () => {
                         </div>
                     </div>
 
+
+
                     {/* ─── RIGHT COLUMN ─── */}
                     <div data-hero-right className="col-lg-5" style={{ paddingLeft: "16px", opacity: 0 }}>
 
-                        {/* Property Report Card — kept white for product contrast */}
-                        <div style={{
-                            background: "#fff",
-                            border: "1px solid rgba(255,255,255,0.15)",
-                            borderRadius: "22px", overflow: "hidden",
-                            boxShadow: "0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08)",
-                        }}>
-                            {/* Card header */}
-                            <div style={{
-                                background: "linear-gradient(135deg, #EEF4FF, #deeafc)",
-                                borderBottom: "1px solid #D8E6F7",
-                                padding: "18px 22px",
-                                display: "flex", justifyContent: "space-between", alignItems: "center",
-                            }}>
-                                <div>
-                                    <div style={{ fontSize: "11px", color: C.lightMuted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "4px" }}>
-                                        Property Intelligence Report
-                                    </div>
-                                    <div style={{ fontSize: "15px", fontWeight: "700", color: C.lightDark }}>
-                                        142 Maple Avenue, Austin TX
-                                    </div>
-                                </div>
-                                <div style={{
-                                    background: "rgba(21,99,223,0.1)", border: "1px solid rgba(21,99,223,0.2)",
-                                    borderRadius: "8px", padding: "5px 12px",
-                                    fontSize: "12px", fontWeight: "700", color: C.primary,
-                                }}>
-                                    ✓ VERIFIED
-                                </div>
-                            </div>
 
-                            {/* Health Score */}
-                            <div style={{
-                                padding: "16px 22px", borderBottom: "1px solid #D8E6F7",
-                                display: "flex", alignItems: "center", gap: "14px",
-                            }}>
-                                <div style={{
-                                    width: "52px", height: "52px", borderRadius: "50%",
-                                    background: `conic-gradient(${C.primary} 0% 86%, #D8E6F7 86% 100%)`,
-                                    display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-                                }}>
-                                    <div style={{
-                                        width: "38px", height: "38px", borderRadius: "50%",
-                                        background: "#fff", display: "flex", alignItems: "center",
-                                        justifyContent: "center", fontSize: "13px", fontWeight: "800", color: C.primary,
-                                    }}>86</div>
-                                </div>
-                                <div>
-                                    <div style={{ fontSize: "13px", fontWeight: "700", color: C.lightDark }}>Property Health Score</div>
-                                    <div style={{ fontSize: "12px", color: C.lightMuted, marginTop: "2px" }}>Based on 4 verified service records</div>
-                                </div>
-                                <div style={{ marginLeft: "auto", textAlign: "right" }}>
-                                    <div style={{ fontSize: "11px", color: C.lightMuted }}>Last updated</div>
-                                    <div style={{ fontSize: "12px", fontWeight: "600", color: C.lightMid }}>Apr 2024</div>
-                                </div>
-                            </div>
 
-                            {/* Timeline */}
-                            <div style={{ padding: "14px 22px 6px" }}>
-                                <div style={{ fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.1em", color: C.lightMuted, marginBottom: "12px", fontWeight: "600" }}>
-                                    Service Timeline
-                                </div>
-                                <div style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
-                                    {timelineItems.map((item, i) => (
-                                        <div key={i} style={{
-                                            display: "flex", alignItems: "center", gap: "12px",
-                                            padding: "9px 10px", borderRadius: "10px",
-                                            background: "#f3f7fd", border: "1px solid #D8E6F7",
-                                            transition: "all 0.2s",
-                                        }}
-                                            onMouseEnter={(e) => { e.currentTarget.style.background = "#EEF4FF"; e.currentTarget.style.borderColor = "rgba(21,99,223,0.2)"; }}
-                                            onMouseLeave={(e) => { e.currentTarget.style.background = "#f3f7fd"; e.currentTarget.style.borderColor = "#D8E6F7"; }}
-                                        >
-                                            <div style={{
-                                                width: "34px", height: "34px", borderRadius: "9px",
-                                                background: "#EEF4FF", border: "1px solid rgba(21,99,223,0.18)",
-                                                display: "flex", alignItems: "center", justifyContent: "center",
-                                                fontSize: "15px", flexShrink: 0,
-                                            }}>{item.icon}</div>
-                                            <div style={{ flex: 1, minWidth: 0 }}>
-                                                <div style={{ fontSize: "13px", fontWeight: "600", color: C.lightDark, whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{item.service}</div>
-                                                <div style={{ fontSize: "11px", color: C.lightMuted, marginTop: "1px" }}>{item.provider}</div>
-                                            </div>
-                                            <div style={{ textAlign: "right", flexShrink: 0 }}>
-                                                <div style={{ fontSize: "11px", color: C.lightMid }}>{item.date}</div>
-                                                <div style={{ fontSize: "10px", color: C.primary, fontWeight: "600", marginTop: "2px" }}>✓ Verified</div>
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
+                        <div>
+                            <div style={{ position: "relative",  margin: "auto" }}>
 
-                            {/* Unlock CTA */}
-                            <div style={{
-                                padding: "14px 22px 18px",
-                                display: "flex", alignItems: "center", justifyContent: "space-between",
-                                borderTop: "1px solid #D8E6F7", marginTop: "10px",
-                            }}>
-                                <div>
-                                    <div style={{ fontSize: "12px", color: C.lightMuted }}>Full report access</div>
-                                    <div style={{ fontSize: "20px", fontWeight: "800", color: C.lightDark }}>
-                                        $30{" "}<span style={{ fontSize: "12px", fontWeight: "400", color: C.lightMuted }}>one-time</span>
-                                    </div>
-                                </div>
-                                <button style={{
-                                    padding: "10px 22px", background: C.primary,
-                                    border: "none", borderRadius: "10px", color: "#fff",
-                                    fontWeight: "700", fontSize: "14px", cursor: "pointer",
-                                    boxShadow: "0 4px 16px rgba(21,99,223,0.4)",
-                                    transition: "all 0.15s",
-                                }}
-                                    onMouseEnter={(e) => { e.target.style.transform = "translateY(-1px)"; e.target.style.boxShadow = "0 8px 24px rgba(21,99,223,0.55)"; }}
-                                    onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 4px 16px rgba(21,99,223,0.4)"; }}
+                                {/* Custom Arrows */}
+                                <button className="prev-btn" style={arrowStyle("left")}> <FiChevronLeft size={26} /></button>
+                                <button className="next-btn" style={arrowStyle("right")}> <FiChevronRight size={26} /></button>
+
+                                <Swiper
+                                    modules={[Navigation]}
+                                    navigation={{
+                                        nextEl: ".next-btn",
+                                        prevEl: ".prev-btn",
+                                    }}
+                                    spaceBetween={20}
+                                    slidesPerView={1}
+                                    loop
                                 >
-                                    Unlock Full Report
-                                </button>
+                                    {data.map((property, index) => (
+                                        <SwiperSlide key={index}>
+
+                                            <div>
+                                                <div style={{
+                                                    background: "#fff",
+                                                    borderRadius: "22px",
+                                                    overflow: "hidden",
+                                                    boxShadow: "0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.08)",
+                                                }}>
+
+                                                    {/* Image */}
+                                                    <div>
+                                                        <img src={property.image} alt="" width="100%" />
+                                                    </div>
+
+                                                    {/* Header */}
+                                                    <div style={{
+                                                        background: "linear-gradient(135deg, #EEF4FF, #deeafc)",
+                                                        borderBottom: "1px solid #D8E6F7",
+                                                        padding: "18px 22px",
+                                                        display: "flex",
+                                                        justifyContent: "space-between",
+                                                        alignItems: "center",
+                                                    }}>
+                                                        <div style={{ maxWidth: "70%" }}>
+                                                            <div style={{ fontSize: "11px", color: C.lightMuted }}>
+                                                                Property Intelligence Report
+                                                            </div>
+                                                            <div style={{ fontSize: "15px", fontWeight: "700", color: C.lightDark }}>
+                                                                {property.address}
+                                                            </div>
+                                                        </div>
+                                                        <div style={{
+                                                            background: "rgba(21,99,223,0.1)",
+                                                            border: "1px solid rgba(21,99,223,0.2)",
+                                                            borderRadius: "8px",
+                                                            padding: "5px 12px",
+                                                            fontSize: "12px",
+                                                            fontWeight: "700",
+                                                            color: C.primary,
+                                                        }}>
+                                                            ✓ VERIFIED
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Score */}
+                                                    <div style={{
+                                                        padding: "16px 22px",
+                                                        borderBottom: "1px solid #D8E6F7",
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        gap: "14px",
+                                                    }}>
+                                                        <div style={{
+                                                            width: "52px",
+                                                            height: "52px",
+                                                            borderRadius: "50%",
+                                                            background: `conic-gradient(${C.primary} 0% ${property.score}%, #D8E6F7 ${property.score}% 100%)`,
+                                                            display: "flex",
+                                                            alignItems: "center",
+                                                            justifyContent: "center",
+                                                        }}>
+                                                            <div style={{
+                                                                width: "38px",
+                                                                height: "38px",
+                                                                borderRadius: "50%",
+                                                                background: "#fff",
+                                                                display: "flex",
+                                                                alignItems: "center",
+                                                                justifyContent: "center",
+                                                                fontSize: "13px",
+                                                                fontWeight: "800",
+                                                                color: C.primary,
+                                                            }}>
+                                                                {property.score}
+                                                            </div>
+                                                        </div>
+
+                                                        <div>
+                                                            <div style={{ fontSize: "13px", fontWeight: "700", color: C.lightDark }}>
+                                                                Property Health Score
+                                                            </div>
+                                                            <div style={{ fontSize: "12px", color: C.lightMuted }}>
+                                                                {property.basedOn}
+                                                            </div>
+                                                        </div>
+
+                                                        <div style={{ marginLeft: "auto", textAlign: "right" }}>
+                                                            <div style={{ fontSize: "11px", color: C.lightMuted }}>
+                                                                Last updated
+                                                            </div>
+                                                            <div style={{ fontSize: "12px", fontWeight: "600", color: C.lightMid }}>
+                                                                {property.updated}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* Timeline */}
+                                                    <div style={{ padding: "14px 22px" }}>
+                                                        {property.timeline.map((item, i) => (
+                                                            <div key={i} style={{
+                                                                display: "flex",
+                                                                justifyContent: "space-between",
+                                                                marginBottom: "8px",
+                                                                padding: "10px",
+                                                                background: "#f3f7fd",
+                                                                borderRadius: "10px",
+                                                            }}>
+                                                                <div>
+                                                                    {item.icon} {item.service}
+                                                                    <div style={{ fontSize: "11px", color: C.lightMuted }}>
+                                                                        {item.provider}
+                                                                    </div>
+                                                                </div>
+                                                                <div style={{ fontSize: "11px" }}>{item.date}</div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+
+                                                    {/* CTA */}
+                                                    <div style={{
+                                                        padding: "14px 22px",
+                                                        display: "flex",
+                                                        justifyContent: "space-between",
+                                                        borderTop: "1px solid #D8E6F7",
+                                                    }}>
+                                                        <div>
+                                                            <div style={{ fontSize: "12px", color: C.lightMuted }}>
+                                                                Full report access
+                                                            </div>
+                                                            <div style={{ fontSize: "20px", fontWeight: "800" }}>
+                                                                ${property.price}
+                                                            </div>
+                                                        </div>
+                                                        <button style={{
+                                                            padding: "10px 20px",
+                                                            background: C.primary,
+                                                            color: "#fff",
+                                                            border: "none",
+                                                            borderRadius: "10px",
+                                                        }}>
+                                                            Unlock Full Report
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </SwiperSlide>
+                                    ))}
+                                </Swiper>
                             </div>
                         </div>
 
+
+
+
+
+
+                        
                         {/* Role cards — dark glass */}
                         <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "10px", marginTop: "14px" }}>
                             {roles.map((role, i) => (
@@ -457,6 +598,8 @@ const HeroSection = () => {
                             ))}
                         </div>
                     </div>
+
+
                 </div>
             </div>
 
