@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Modal, message } from 'antd';
 import { IoLogOutOutline } from "react-icons/io5";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
+import DashboardSidebar from '../../components/DashboardSidebar';
 // ============================================
 // HEADER COMPONENT
 // ============================================
@@ -57,7 +58,6 @@ const Header = () => {
                                     </nav>
                                 </div>
                             </div>
-
                             <div className="flat-bt-top">
                                 <a
                                     className="tf-btn primary"
@@ -68,7 +68,6 @@ const Header = () => {
                                     Logout
                                 </a>
                             </div>
-
                             <div className="mobile-nav-toggler mobile-button" onClick={() => setMobileMenuOpen(true)}><span></span></div>
                         </div>
                     </div>
@@ -500,23 +499,39 @@ const MainDashboard = () => {
     );
 };
 
+const DashboardTitleContent = ({ title }) => {
+    return (
+        <div className="main-content">
+            <div className="main-content-inner">
+                <div className="button-show-hide show-mb"><span className="body-1">Show Dashboard</span></div>
+                <h2>{title}</h2>
+            </div>
+            <div className="footer-dashboard"><p>Copyright © 2024 Home Lengo</p></div>
+        </div>
+    );
+};
+
 // ============================================
 // APP COMPONENT (combining all)
 // ============================================
-const Dashboard = () => {
+const Dashboard = ({ pageTitle }) => {
     // Preload effect simulation (optional)
     useEffect(() => {
         const preload = document.querySelector('.preload');
         if (preload) setTimeout(() => preload.classList.add('hide'), 500);
     }, []);
 
+    useEffect(() => {
+        document.title = pageTitle ? `${pageTitle} | Dashboard` : 'Dashboard';
+    }, [pageTitle]);
+
     return (
         <div id="wrapper">
             <div id="page" className="clearfix">
                 <div className="layout-wrap">
                     <Header />
-                    <Sidebar />
-                    <MainDashboard />
+                    <DashboardSidebar />
+                    {pageTitle ? <DashboardTitleContent title={pageTitle} /> : <MainDashboard />}
                     <div className="overlay-dashboard"></div>
                 </div>
             </div>
