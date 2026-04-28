@@ -77,7 +77,7 @@ const Header = () => {
                                     <div className="logo-box flex">
                                         <div className="logo">
                                             <Link to="/">
-                                                <img src="images/logo/logo@2x.png" alt="logo" width="166" height="48" />
+                                                <img src="/images/logo/logo@2x.png" alt="logo" width="166" height="48" />
                                             </Link>
                                         </div>
                                     </div>

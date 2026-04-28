@@ -188,7 +188,7 @@ const Footer = () => {
                             {/* Left — Logo + desc + socials */}
                             <div data-animate="left" className="col-lg-5">
                                 <a href="/" style={{ display: "inline-block", marginBottom: "20px" }}>
-                                    {/* <img src="images/logo/logo-footer@2x.png" alt="logo" width="166" height="48" /> */}
+                                    <img src="/images/logo/logo-footer@2x.png" alt="logo" width="166" height="48" />
                                 </a>
                                 <p style={{
                                     fontSize: "14px", color: "rgba(255,255,255,0.5)",
