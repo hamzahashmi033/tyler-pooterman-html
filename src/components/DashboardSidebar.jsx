@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 const DashboardSidebar = () => {
     const { pathname } = useLocation();
-
+    const userData = JSON.parse(localStorage.getItem('currentUser'));
     const isActive = (route) => pathname === route;
 
     return (
@@ -27,8 +27,8 @@ const DashboardSidebar = () => {
                         </svg>
                     </div>
                     <div className="content">
-                        <div className="caption-2 text">Account</div>
-                        <div className="text-white fw-6">sitescouter@gmail...</div>
+                        <div className="caption-2 text">{userData.role}</div>
+                        <div className="text-white fw-6">{userData.email}</div>
                     </div>
                 </div>
             </div>
