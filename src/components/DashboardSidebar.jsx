@@ -1,6 +1,10 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const DashboardSidebar = () => {
+    const { pathname } = useLocation();
+
+    const isActive = (route) => pathname === route;
+
     return (
         <div className="sidebar-menu-dashboard">
             <a href="/" className="logo-box">
@@ -31,7 +35,7 @@ const DashboardSidebar = () => {
             <div className="menu-box">
                 <div className="title fw-6">Menu</div>
                 <ul className="box-menu-dashboard">
-                    <li className="nav-menu-item active">
+                    <li className={`nav-menu-item ${isActive('/dashboard') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -44,7 +48,7 @@ const DashboardSidebar = () => {
                             Dashboards
                         </Link>
                     </li>
-                    <li className="nav-menu-item">
+                    <li className={`nav-menu-item ${isActive('/dashboard/profile-management') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/profile-management">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -55,7 +59,7 @@ const DashboardSidebar = () => {
                             Profile Management
                         </Link>
                     </li>
-                    <li className="nav-menu-item">
+                    <li className={`nav-menu-item ${isActive('/dashboard/property-management') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/property-management">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -67,7 +71,7 @@ const DashboardSidebar = () => {
                             Property Management
                         </Link>
                     </li>
-                    <li className="nav-menu-item">
+                    <li className={`nav-menu-item ${isActive('/dashboard/report-management') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/report-management">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -78,19 +82,18 @@ const DashboardSidebar = () => {
                             Report Management
                         </Link>
                     </li>
-                  
-                    <li className="nav-menu-item">
-                        <Link className="nav-menu-link" to="/dashboard/my-favorite">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+
+                    <li className={`nav-menu-item ${isActive('/dashboard/subscription') ? 'active' : ''}`}>
+                        <Link className="nav-menu-link" to="/dashboard/subscription">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M2.63385 10.6318C1.65026 7.56096 2.79976 4.05104 6.02368 3.01246C7.71951 2.46521 9.59135 2.78788 11.0012 3.84846C12.3349 2.81721 14.2755 2.46888 15.9695 3.01246C19.1934 4.05104 20.3503 7.56096 19.3676 10.6318C17.8368 15.4993 11.0012 19.2485 11.0012 19.2485C11.0012 19.2485 4.21601 15.5561 2.63385 10.6318Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M14.668 6.14258C15.6488 6.45974 16.3418 7.33516 16.4252 8.36274" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path d="M19.5 3H4.5C4.10218 3 3.72064 3.15804 3.43934 3.43934C3.15804 3.72064 3 4.10218 3 4.5V19.5C3 19.8978 3.15804 20.2794 3.43934 20.5607C3.72064 20.842 4.10218 21 4.5 21H19.5C19.8978 21 20.2794 20.842 20.5607 20.5607C20.842 20.2794 21 19.8978 21 19.5V4.5C21 4.10218 20.842 3.72064 20.5607 3.43934C20.2794 3.15804 19.8978 3 19.5 3ZM19.5 19.5H4.5V4.5H19.5V19.5ZM16.5 12C16.5 12.1989 16.421 12.3897 16.2803 12.5303C16.1397 12.671 15.9489 12.75 15.75 12.75H12.75V15.75C12.75 15.9489 12.671 16.1397 12.5303 16.2803C12.3897 16.421 12.1989 16.5 12 16.5C11.8011 16.5 11.6103 16.421 11.4697 16.2803C11.329 16.1397 11.25 15.9489 11.25 15.75V12.75H8.25C8.05109 12.75 7.86032 12.671 7.71967 12.5303C7.57902 12.3897 7.5 12.1989 7.5 12C7.5 11.8011 7.57902 11.6103 7.71967 11.4697C7.86032 11.329 8.05109 11.25 8.25 11.25H11.25V8.25C11.25 8.05109 11.329 7.86032 11.4697 7.71967C11.6103 7.57902 11.8011 7.5 12 7.5C12.1989 7.5 12.3897 7.57902 12.5303 7.71967C12.671 7.86032 12.75 8.05109 12.75 8.25V11.25H15.75C15.9489 11.25 16.1397 11.329 16.2803 11.4697C16.421 11.6103 16.5 11.8011 16.5 12Z" fill="#F1FAEE" />
                                 </g>
                             </svg>
-                            My favorite
+                            Subscription
                         </Link>
                     </li>
-                    <li className="nav-menu-item">
+                    <li className={`nav-menu-item ${isActive('/dashboard/message') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/message">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -103,7 +106,7 @@ const DashboardSidebar = () => {
                             Message
                         </Link>
                     </li>
-                    <li className="nav-menu-item">
+                    {/* <li className={`nav-menu-item ${isActive('/dashboard/add-property') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/add-property">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -112,7 +115,7 @@ const DashboardSidebar = () => {
                             </svg>
                             Add Property
                         </Link>
-                    </li>
+                    </li> */}
 
                 </ul>
             </div>

@@ -15,7 +15,7 @@ import AllProperties from "../pages/AllProperties";
 import PropertyDetails from "../pages/PropertyDetails";
 import ProfileManagement from "../pages/Dashboard/pages/ProfileManagement";
 import ReportManagement from "../pages/Dashboard/pages/ReportManagement";
-import MyFavorite from "../pages/Dashboard/pages/MyFavorite";
+import Subscription from "../pages/Dashboard/pages/Subscription";
 import Message from "../pages/Dashboard/pages/Message";
 import AddProperty from "../pages/Dashboard/pages/AddProperty";
 import PropertyManagement from "../pages/Dashboard/pages/PropertyManagement";
@@ -42,7 +42,7 @@ const Navigation = () => {
                 <Route path="/dashboard/profile-management" element={<ProfileManagement />} />
                 <Route path="/dashboard/report-management" element={<ReportManagement />} />
                 <Route path="/dashboard/property-management" element={<PropertyManagement />} />
-                <Route path="/dashboard/my-favorite" element={<MyFavorite />} />
+                <Route path="/dashboard/subscription" element={<Subscription />} />
                 <Route path="/dashboard/message" element={<Message />} />
                 <Route path="/dashboard/add-property" element={<AddProperty />} />
             </Routes>
