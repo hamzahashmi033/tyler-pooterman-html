@@ -21,6 +21,10 @@ import Subscription from "../pages/Dashboard/pages/Subscription";
 import Message from "../pages/Dashboard/pages/Message";
 import AddProperty from "../pages/Dashboard/pages/AddProperty";
 import PropertyManagement from "../pages/Dashboard/pages/PropertyManagement";
+import ServiceLogging from "../pages/providers/ServiceLogging";
+import ToolsOverview from "../pages/providers/ToolsOverview";
+import ClaimProperty from "../pages/homeowners/ClaimProperty";
+import ManageRecords from "../pages/homeowners/ManageRecords";
 
 const ScrollToTop = () => {
     const { pathname, search, hash } = useLocation();
@@ -33,9 +37,14 @@ const ScrollToTop = () => {
 
     useLayoutEffect(() => {
         const forceTop = () => {
-            window.scrollTo(0, 0);
+            window.scrollTo({ top: 0, left: 0, behavior: "instant" });
             document.documentElement.scrollTop = 0;
             document.body.scrollTop = 0;
+            // Cover themed wrappers that may have their own scroll context
+            const wrapper = document.getElementById("wrapper");
+            const page = document.getElementById("pagee");
+            if (wrapper) wrapper.scrollTop = 0;
+            if (page) page.scrollTop = 0;
         };
 
         forceTop();
@@ -75,6 +84,11 @@ const Navigation = () => {
                 <Route path="/dashboard/subscription" element={<Subscription />} />
                 <Route path="/dashboard/message" element={<Message />} />
                 <Route path="/dashboard/add-property" element={<AddProperty />} />
+
+                <Route path="/providers/service-logging" element={<ServiceLogging />} />
+                <Route path="/providers/tools-overview" element={<ToolsOverview />} />
+                <Route path="/homeowners/claim-property" element={<ClaimProperty />} />
+                <Route path="/homeowners/manage-records" element={<ManageRecords />} />
             </Routes>
         </BrowserRouter>
     );

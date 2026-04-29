@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { playHeroEntrance } from "../animations";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import "swiper/css";
 import "swiper/css/navigation";
+import { PROPERTIES } from "../data/properties";
 
 const C = {
     bg: "#0b1628",
@@ -48,52 +50,16 @@ const HeroSection = () => {
 
 
 
-    const data = [
-        {
-            image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
-            address: "142 Maple Avenue, Austin TX",
-            score: 96,
-            basedOn: "Based on 4 verified service records",
-            updated: "Apr 2024",
-            price: 30,
-            timeline: [
-                {
-                    icon: "🛠️",
-                    service: "HVAC Full Service",
-                    provider: "CoolAir Pro",
-                    date: "Mar 2024"
-                },
-                {
-                    icon: "⚡",
-                    service: "Electrical Panel Upgrade",
-                    provider: "WireRight LLC",
-                    date: "Nov 2023"
-                }
-            ]
-        },
-        {
-            image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
-            address: "55 Sunset Blvd, Phoenix AZ",
-            score: 92,
-            basedOn: "Based on 6 verified service records",
-            updated: "Jan 2025",
-            price: 40,
-            timeline: [
-                {
-                    icon: "🏠",
-                    service: "Roof Inspection",
-                    provider: "TopRoof Inc",
-                    date: "Dec 2024"
-                },
-                {
-                    icon: "🏠",
-                    service: "Roof Inspection",
-                    provider: "TopRoof Inc",
-                    date: "Dec 2024"
-                }
-            ]
-        }
-    ];
+    const data = PROPERTIES.slice(0, 4).map((p) => ({
+        id: p.id,
+        image: p.img,
+        address: p.address,
+        score: p.score,
+        basedOn: `Based on ${p.records} verified service records`,
+        updated: p.lastUpdated,
+        price: 30,
+        timeline: p.timeline.slice(0, 2),
+    }));
 
 
 
@@ -554,15 +520,23 @@ const arrowStyle = (position) => ({
                                                                 ${property.price}
                                                             </div>
                                                         </div>
-                                                        <button style={{
-                                                            padding: "10px 20px",
-                                                            background: C.primary,
-                                                            color: "#fff",
-                                                            border: "none",
-                                                            borderRadius: "10px",
-                                                        }}>
-                                                            Unlock Full Report
-                                                        </button>
+                                                        <Link
+                                                            to={`/property-deatils/${property.id}`}
+                                                            style={{
+                                                                padding: "10px 20px",
+                                                                background: C.primary,
+                                                                color: "#fff",
+                                                                border: "none",
+                                                                borderRadius: "10px",
+                                                                textDecoration: "none",
+                                                                display: "inline-flex",
+                                                                alignItems: "center",
+                                                                fontWeight: "700",
+                                                                fontSize: "14px",
+                                                            }}
+                                                        >
+                                                            View Full Report →
+                                                        </Link>
                                                     </div>
 
                                                 </div>

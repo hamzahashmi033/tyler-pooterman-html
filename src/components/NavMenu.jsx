@@ -18,16 +18,18 @@ const NavMenu = () => {
             <li className={navClass("home", "/features")}>
                 <Link to="/features">Features</Link>
             </li>
-            <li className="dropdown2"><a href="#">For Providers</a>
+            <li className={`dropdown2${pathname.startsWith("/providers") ? " current" : ""}`}>
+                <a href="#">For Providers</a>
                 <ul>
-                    <li><a href="#">Service logging</a></li>
-                    <li><a href="#">Tools overview</a></li>
+                    <li><Link to="/providers/service-logging">Service Logging</Link></li>
+                    <li><Link to="/providers/tools-overview">Tools Overview</Link></li>
                 </ul>
             </li>
-            <li className="dropdown2"><a href="#">For Homeowners</a>
+            <li className={`dropdown2${pathname.startsWith("/homeowners") ? " current" : ""}`}>
+                <a href="#">For Homeowners</a>
                 <ul>
-                    <li><a href="#">Claim property</a></li>
-                    <li><a href="#">Manage records</a></li>
+                    <li><Link to="/homeowners/claim-property">Claim Property</Link></li>
+                    <li><Link to="/homeowners/manage-records">Manage Records</Link></li>
                 </ul>
             </li>
             <li className={navClass("home", "/contact-us")}>
