@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect, useLayoutEffect } from "react";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Home from "../pages/Home";
 import Contactus from "../pages/Contactus";
 import HowItWorks from "../pages/HowItWorks";
@@ -21,9 +22,36 @@ import Message from "../pages/Dashboard/pages/Message";
 import AddProperty from "../pages/Dashboard/pages/AddProperty";
 import PropertyManagement from "../pages/Dashboard/pages/PropertyManagement";
 
+const ScrollToTop = () => {
+    const { pathname, search, hash } = useLocation();
+
+    useEffect(() => {
+        if ("scrollRestoration" in window.history) {
+            window.history.scrollRestoration = "manual";
+        }
+    }, []);
+
+    useLayoutEffect(() => {
+        const forceTop = () => {
+            window.scrollTo(0, 0);
+            document.documentElement.scrollTop = 0;
+            document.body.scrollTop = 0;
+        };
+
+        forceTop();
+        requestAnimationFrame(forceTop);
+        const timer = setTimeout(forceTop, 60);
+
+        return () => clearTimeout(timer);
+    }, [pathname, search, hash]);
+
+    return null;
+};
+
 const Navigation = () => {
     return (
         <BrowserRouter>
+            <ScrollToTop />
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/how-it-works" element={<HowItWorks />} />

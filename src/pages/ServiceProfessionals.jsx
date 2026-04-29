@@ -7,6 +7,52 @@ import { UploadOutlined } from "@ant-design/icons";
 const { Title, Text } = Typography;
 const { TextArea } = Input;
 
+const C = {
+    primary: "#1563df",
+    primaryDeep: "#0f4fbe",
+    primaryLight: "rgba(21,99,223,0.08)",
+    primaryBorder: "rgba(21,99,223,0.2)",
+    slate: "#161E2D",
+    muted: "#6B7280",
+    softBg: "#f3f7fd",
+    white: "#ffffff"
+};
+
+const PLAN_OPTIONS = [
+    {
+        key: "plan1",
+        badge: "Most Popular",
+        badgeColor: "processing",
+        title: "Service Company (1)",
+        price: "$165/month",
+        accent: "#1563df",
+        gradient: "linear-gradient(135deg,#EEF4FF 0%,#DCE9FF 100%)",
+        features: [
+            "Unlimited entries for properties serviced",
+            "Attach service paperwork and bids/proposals in report ledger",
+            "Import paperwork into fillable forms for office records",
+            "Follow-up reminders for maintenance and quality control",
+            "Up to 8 report views/month, then $60 per report"
+        ]
+    },
+    {
+        key: "plan2",
+        badge: "Flexible",
+        badgeColor: "default",
+        title: "Service Company (2)",
+        price: "$50 Signup Fee + $10/Entry",
+        accent: "#0ea5b7",
+        gradient: "linear-gradient(135deg,#ECFEFF 0%,#D9F5F9 100%)",
+        features: [
+            "Per entry includes date and brief service description",
+            "No service paperwork attachments",
+            "No follow-up reminders",
+            "No paperwork import/digitization",
+            "Reports charged at full price"
+        ]
+    }
+];
+
 const ServiceProfessionals = () => {
     const [form] = Form.useForm();
     const [cardForm] = Form.useForm();
@@ -215,78 +261,90 @@ const ServiceProfessionals = () => {
                                                 Select one plan to continue to card details.
                                             </Text>
                                             <div className="row">
-                                                <div className="col-md-6 mb-3">
-                                                    <Card
-                                                        bordered={false}
-                                                        onClick={() => setSelectedPlan("plan1")}
-                                                        style={{
-                                                            cursor: "pointer",
-                                                            height: "100%",
-                                                            background: "#ffffff",
-                                                            boxShadow: selectedPlan === "plan1" ? "0 10px 24px rgba(21, 98, 223, 0.18)" : "0 4px 12px rgba(0,0,0,0.08)",
-                                                            borderTop: "4px solid #1562df",
-                                                            border: selectedPlan === "plan1" ? "2px solid #1562df" : "2px solid #e8eef8",
-                                                            borderRadius: "12px",
-                                                            transition: "all 0.2s ease"
-                                                        }}
-                                                    >
-                                                        <Tag color="processing" style={{ marginBottom: "12px", fontFamily: "Manrope, sans-serif" }}>
-                                                            Most Popular
-                                                        </Tag>
-                                                        <Title level={4} style={{ fontFamily: "Manrope, sans-serif", marginBottom: "6px" }}>
-                                                            Service Company (1)
-                                                        </Title>
-                                                        <Text strong style={{ color: "#1562df", fontSize: "18px" }}>
-                                                            $165/month
-                                                        </Text>
-                                                        <ul style={{ marginTop: "14px", paddingLeft: "20px", color: "#333" }}>
-                                                            <li>Allows unlimited entries for properties serviced</li>
-                                                            <li>Allows attaching service paperwork and bids/proposals into report ledger</li>
-                                                            <li>Import company paperwork to convert into fillable forms emailed to office staff</li>
-                                                            <li>Follow-up reminders for maintenance, bid follow-ups, and quality control</li>
-                                                            <li>View up to 8 reports per month; additional reports are $60 each</li>
-                                                        </ul>
-                                                        <Button type={selectedPlan === "plan1" ? "primary" : "default"} block>
-                                                            {selectedPlan === "plan1" ? "Selected" : "Select Plan"}
-                                                        </Button>
-                                                    </Card>
-                                                </div>
-                                                <div className="col-md-6 mb-3">
-                                                    <Card
-                                                        bordered={false}
-                                                        onClick={() => setSelectedPlan("plan2")}
-                                                        style={{
-                                                            cursor: "pointer",
-                                                            height: "100%",
-                                                            background: "#ffffff",
-                                                            boxShadow: selectedPlan === "plan2" ? "0 10px 24px rgba(21, 98, 223, 0.18)" : "0 4px 12px rgba(0,0,0,0.08)",
-                                                            borderTop: "4px solid #79a7f1",
-                                                            border: selectedPlan === "plan2" ? "2px solid #1562df" : "2px solid #e8eef8",
-                                                            borderRadius: "12px",
-                                                            transition: "all 0.2s ease"
-                                                        }}
-                                                    >
-                                                        <Tag color="default" style={{ marginBottom: "12px", fontFamily: "Manrope, sans-serif" }}>
-                                                            Flexible
-                                                        </Tag>
-                                                        <Title level={4} style={{ fontFamily: "Manrope, sans-serif", marginBottom: "6px" }}>
-                                                            Service Company (2)
-                                                        </Title>
-                                                        <Text strong style={{ color: "#1562df", fontSize: "18px" }}>
-                                                            $50 Signup Fee + $10/Entry
-                                                        </Text>
-                                                        <ul style={{ marginTop: "14px", paddingLeft: "20px", color: "#333" }}>
-                                                            <li>Per entry includes date and brief description of service</li>
-                                                            <li>No attaching of service paperwork</li>
-                                                            <li>No follow-up reminders</li>
-                                                            <li>No importing of paperwork for digitizing</li>
-                                                            <li>Reports are charged at full price</li>
-                                                        </ul>
-                                                        <Button type={selectedPlan === "plan2" ? "primary" : "default"} block>
-                                                            {selectedPlan === "plan2" ? "Selected" : "Select Plan"}
-                                                        </Button>
-                                                    </Card>
-                                                </div>
+                                                {PLAN_OPTIONS.map((plan) => {
+                                                    const isSelected = selectedPlan === plan.key;
+                                                    return (
+                                                        <div className="col-md-6 mb-3" key={plan.key}>
+                                                            <Card
+                                                                bordered={false}
+                                                                onClick={() => setSelectedPlan(plan.key)}
+                                                                style={{
+                                                                    cursor: "pointer",
+                                                                    height: "100%",
+                                                                    background: C.white,
+                                                                    borderRadius: "18px",
+                                                                    border: isSelected ? `2px solid ${plan.accent}` : "1px solid #dce8f8",
+                                                                    boxShadow: isSelected
+                                                                        ? "0 18px 36px rgba(21,99,223,0.22)"
+                                                                        : "0 8px 20px rgba(22,30,45,0.08)",
+                                                                    overflow: "hidden",
+                                                                    transition: "all 0.25s ease",
+                                                                }}
+                                                            >
+                                                                <div
+                                                                    style={{
+                                                                        background: plan.gradient,
+                                                                        margin: "-24px -24px 20px",
+                                                                        padding: "20px 22px 16px",
+                                                                        borderBottom: `1px solid ${C.primaryBorder}`
+                                                                    }}
+                                                                >
+                                                                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "12px" }}>
+                                                                        <Tag color={plan.badgeColor} style={{ fontFamily: "Manrope, sans-serif", borderRadius: "999px", padding: "3px 11px" }}>
+                                                                            {plan.badge}
+                                                                        </Tag>
+                                                                        <span
+                                                                            style={{
+                                                                                width: "30px",
+                                                                                height: "30px",
+                                                                                borderRadius: "10px",
+                                                                                display: "inline-flex",
+                                                                                alignItems: "center",
+                                                                                justifyContent: "center",
+                                                                                background: `${plan.accent}1A`,
+                                                                                border: `1px solid ${plan.accent}4D`
+                                                                            }}
+                                                                        >
+                                                                            {plan.key === "plan1" ? "★" : "⚙"}
+                                                                        </span>
+                                                                    </div>
+                                                                    <Title level={4} style={{ fontFamily: "Manrope, sans-serif", marginBottom: "4px", color: C.slate }}>
+                                                                        {plan.title}
+                                                                    </Title>
+                                                                    <Text strong style={{ color: plan.accent, fontSize: "18px", fontFamily: "Manrope, sans-serif" }}>
+                                                                        {plan.price}
+                                                                    </Text>
+                                                                </div>
+
+                                                                <ul style={{ marginTop: "2px", paddingLeft: "0px", listStyle: "none", color: C.slate }}>
+                                                                    {plan.features.map((feature) => (
+                                                                        <li key={feature} style={{ marginBottom: "10px", display: "flex", alignItems: "flex-start", gap: "8px", fontSize: "13px", color: C.muted, lineHeight: "1.55" }}>
+                                                                            <span style={{ color: plan.accent, fontWeight: 700 }}>✓</span>
+                                                                            <span>{feature}</span>
+                                                                        </li>
+                                                                    ))}
+                                                                </ul>
+
+                                                                <Button
+                                                                    type={isSelected ? "primary" : "default"}
+                                                                    block
+                                                                    style={{
+                                                                        marginTop: "8px",
+                                                                        height: "42px",
+                                                                        borderRadius: "10px",
+                                                                        fontFamily: "Manrope, sans-serif",
+                                                                        borderColor: isSelected ? plan.accent : "#cad8ef",
+                                                                        background: isSelected ? plan.accent : C.softBg,
+                                                                        color: isSelected ? "#fff" : C.slate,
+                                                                        fontWeight: 700
+                                                                    }}
+                                                                >
+                                                                    {isSelected ? "Selected Plan" : "Select Plan"}
+                                                                </Button>
+                                                            </Card>
+                                                        </div>
+                                                    );
+                                                })}
                                             </div>
 
                                             <div style={{ textAlign: "center", marginTop: "10px" }}>
@@ -296,8 +354,10 @@ const ServiceProfessionals = () => {
                                                     disabled={!selectedPlan}
                                                     onClick={() => setShowCardDetails(true)}
                                                     style={{
-                                                        backgroundColor: "#1562df",
-                                                        borderColor: "#1562df",
+                                                        backgroundColor: !selectedPlan ? "#d9d9d9" : "#1562df",
+                                                        borderColor: !selectedPlan ? "#d9d9d9" : "#1562df",
+                                                        color: !selectedPlan ? "#888" : "#fff",
+                                                        cursor: !selectedPlan ? "not-allowed" : "pointer",
                                                         fontFamily: "Manrope, sans-serif",
                                                         minWidth: "240px"
                                                     }}

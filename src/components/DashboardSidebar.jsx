@@ -7,6 +7,7 @@ const DashboardSidebar = () => {
     const { pathname } = useLocation();
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     const isActive = (route) => pathname === route;
+    const isReportManagementActive = pathname.startsWith('/dashboard/report-management');
     const handleLogout = () => {
         localStorage.clear();
         message.success('Logged out successfully!');
@@ -81,7 +82,7 @@ const DashboardSidebar = () => {
                             Property Management
                         </Link>
                     </li> */}
-                    <li className={`nav-menu-item ${isActive('/dashboard/report-management') ? 'active' : ''}`}>
+                    <li className={`nav-menu-item ${isReportManagementActive ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/report-management">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
