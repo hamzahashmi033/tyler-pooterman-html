@@ -3,7 +3,7 @@ import Footer from "../components/Footer";
 import Header from "../components/Header";
 
 const Contactus = () => {
- 
+
 
     return (
         <>
@@ -19,7 +19,7 @@ const Contactus = () => {
                     <div className="container">
                         <div className="breadcrumb-content">
                             <ul className="breadcrumb">
-                                <li><a href="index.html" className="text-white">Home</a></li>
+                                <li><a href="/" className="text-white">Home</a></li>
                                 <li className="text-white">/ Pages</li>
                                 <li className="text-white">/ Contact Us</li>
                             </ul>
@@ -118,13 +118,13 @@ const Contactus = () => {
                                         <li className="box">
                                             <h6 className="title">Address:</h6>
                                             <p className="text-variant-1">
-                                               Address Here
+                                                Address Here
                                             </p>
                                         </li>
                                         <li className="box">
                                             <h6 className="title">Infomation:</h6>
                                             <p className="text-variant-1">
-                                                +1928-899-5100 <br /> tech.sitescouter@gmail.com
+                                                +1928-899-5100 <br /> info@sitescouter.com
                                             </p>
                                         </li>
                                         <li className="box">

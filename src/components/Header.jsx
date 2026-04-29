@@ -1,11 +1,68 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import SignInModal from "../components/Modals/SignInModal";
 import SignUpModal from "../components/Modals/SignUpModal";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
+import ForgetModal from "./Modals/ForgetModal";
+import OtpModal from "./Modals/OtpModal";
+import NavMenu from "./NavMenu";
+import { ToolOutlined, ShopOutlined, HomeOutlined } from '@ant-design/icons';
+import { Button, Dropdown } from 'antd';
 
 const Header = () => {
-    const { pathname } = useLocation();
-    const isActivePath = (path) => (path === "/" ? pathname === "/" : pathname.startsWith(path));
-    const navClass = (baseClass, path) => `${baseClass}${isActivePath(path) ? " current" : ""}`;
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [userData, setUserData] = useState(null);
+
+
+    useEffect(() => {
+        const loggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+
+        setIsLoggedIn(loggedIn);
+        setUserData(user);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('isLoggedIn');
+
+        setIsLoggedIn(false);
+        setUserData(null);
+
+        navigate('/');
+        window.location.reload();
+    };
+
+    const items = [
+        {
+            key: '3',
+            icon: <HomeOutlined style={{ color: "#1563df", fontSize: "18px" }} />,
+            label: (
+                <Link to="/home-owners" style={{ fontSize: "14px", fontFamily: "Manrope, sans-serif" }}>
+                    Homeowner
+                </Link>
+            ),
+        },
+        {
+            key: '2',
+            icon: <ShopOutlined style={{ color: "#1563df", fontSize: "18px" }} />,
+            label: (
+                <Link to="/realtors" style={{ fontSize: "14px", fontFamily: "Manrope, sans-serif" }}>
+                    Realtors
+                </Link>
+            ),
+        },
+        {
+            key: '1',
+            icon: <ToolOutlined style={{ color: "#1563df", fontSize: "18px" }} />,
+            label: (
+                <Link to="/service-professionals" style={{ fontSize: "14px", fontFamily: "Manrope, sans-serif" }}>
+                    Service Professional
+                </Link>
+            ),
+        },
+    ];
 
     return (
         <>
@@ -20,7 +77,7 @@ const Header = () => {
                                     <div className="logo-box flex">
                                         <div className="logo">
                                             <Link to="/">
-                                                <img src="images/logo/logo@2x.png" alt="logo" width="166" height="48" />
+                                                <img src="/images/logo/logo@2x.png" alt="logo" width="166" height="48" />
                                             </Link>
                                         </div>
                                     </div>
@@ -28,97 +85,62 @@ const Header = () => {
                                         {/* Main Menu */}
                                         <nav className="main-menu show navbar-expand-md">
                                             <div className="navbar-collapse collapse clearfix" id="navbarSupportedContent">
-                                                <ul className="navigation clearfix">
-                                                    <li className={navClass("home", "/")}>
-                                                        <Link to="/">Home</Link>
-                                                    </li>
-                                                    <li className={navClass("home", "/how-it-works")}>
-                                                        <Link to="/how-it-works">How It Works</Link>
-                                                    </li>
-                                                    <li className={navClass("home", "/pricing")}>
-                                                        <Link to="/pricing">Pricing</Link>
-                                                    </li>
-                                                    <li className={navClass("home", "/features")}>
-                                                        <Link to="/features">Features</Link>
-                                                    </li>
-                                                    {/* <li className={navClass("dropdown2", "/pricing")}><Link to="/pricing">Pricing</Link>
-                                                        <ul>
-                                                            <li><a href="#">Reports (buyers)</a></li>
-                                                            <li><a href="#">Subscriptions (providers)</a></li>
-                                                        </ul>
-                                                    </li> */}
-                                                    <li className="dropdown2"><a href="#">For Providers</a>
-                                                        <ul>
-                                                            <li><a href="#">Service logging</a></li>
-                                                            <li><a href="#">Tools overview</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="dropdown2"><a href="#">For Homeowners</a>
-                                                        <ul>
-                                                            <li><a href="#">Claim property</a></li>
-                                                            <li><a href="#">Manage records</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className={navClass("home", "/contact-us")}>
-                                                        <Link to="/contact-us">Contact Us</Link>
-                                                    </li>
-                                                    {/* <li className="dropdown2"><a href="#">Listing</a>
-                                                        <ul>
-                                                            <li><a href="property-halfmap-grid.html">Property Half Map Grid</a></li>
-                                                            <li><a href="property-halfmap-list.html">Property Half Map List</a></li>
-                                                            <li><a href="topmap-grid.html">Find Topmap Grid</a></li>
-                                                            <li><a href="topmap-list.html">Find Topmap List</a></li>
-                                                            <li><a href="sidebar-grid.html">Find Sidebar Grid</a></li>
-                                                            <li><a href="sidebar-list.html">Find Sidebar List</a></li>
-
-                                                        </ul>
-                                                    </li>
-                                                    <li className="dropdown2"><a href="#">Properties</a>
-                                                        <ul>
-                                                            <li><a href="property-details-v1.html">Property Details 1</a></li>
-                                                            <li><a href="property-details-v2.html">Property Details 2</a></li>
-                                                            <li><a href="property-details-v3.html">Property Details 3</a></li>
-                                                            <li><a href="property-details-v4.html">Property Details 4</a></li>
-                                                        </ul>
-                                                    </li>
-                                                    <li className="dropdown2"><a href="#">Pages</a>
-                                                        <ul>
-                                                            <li><a href="about-us.html">About Us</a></li>
-                                                            <li><a href="our-service.html">Our Services</a></li>
-                                                            <li><a href="pricing.html">Pricing</a></li>
-                                                            <li><a href="contact.html">Contact Us</a></li>
-                                                            <li><a href="faq.html">FAQs</a></li>
-                                                            <li><a href="privacy-policy.html">Privacy Policy</a></li>
-
-                                                        </ul>
-                                                    </li>
-                                                    <li className="dropdown2"><a href="#">Blog</a>
-                                                        <ul>
-                                                            <li><a href="blog.html">Blog Default</a></li>
-                                                            <li><a href="blog-grid.html">Blog Grid</a></li>
-                                                            <li><a href="blog-detail.html">Blog Post Details</a></li>
-                                                        </ul>
-                                                    </li>
-
-                                                    <li className="dropdown2"><a href="#">Dashboard</a>
-                                                        <ul>
-                                                            <li><a href="dashboard.html">Dashboard</a></li>
-                                                            <li><a href="my-property.html">My Properties</a></li>
-                                                            <li><a href="message.html">Message</a></li>
-                                                            <li><a href="my-favorites.html">My Favorites</a></li>
-                                                            <li><a href="reviews.html">Reviews</a></li>
-                                                            <li><a href="my-profile.html">My Profile</a></li>
-                                                            <li><a href="add-property.html">Add Property</a></li>
-                                                        </ul>
-                                                    </li> */}
-                                                </ul>
+                                                <NavMenu />
                                             </div>
                                         </nav>
                                         {/* Main Menu End--> */}
                                     </div>
                                 </div>
                                 <div className="inner-header-right header-account">
-                                    <a href="#modalLogin"
+                                    {isLoggedIn ? (
+                                        <Button className="tf-btn btn-line btn-login"
+                                            onClick={() => navigate('/dashboard')}
+                                        >
+                                            <svg width="20" height="20" viewBox="0 0 20 20" fill="#000" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                            </svg>
+                                            <span style={{ fontSize: "16px", fontFamily: "Manrope, sans-serif" }}>
+                                                {userData?.name?.split(' ')[0] || 'Account'}
+                                            </span>
+                                        </Button>
+                                    ) : (
+                                        <>
+                                            <div>
+                                                <a
+                                                    onClick={e => e.preventDefault()}
+                                                    href="#modalLogin"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#modalLogin"
+                                                >
+                                                    <Button className="tf-btn btn-line btn-login">
+                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#000" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                        </svg>
+                                                        <span style={{ fontSize: "16px", fontFamily: "Manrope, sans-serif" }}>
+                                                            Sign In
+                                                        </span>
+                                                    </Button>
+
+                                                </a>
+                                            </div>
+                                            <Dropdown menu={{ items }}>
+
+                                                <Button className="tf-btn btn-line btn-login">
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="#000" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                    </svg>
+                                                    <span style={{ fontSize: "16px", fontFamily: "Manrope, sans-serif" }}>
+                                                        Sign up
+                                                    </span>
+                                                </Button>
+
+
+                                            </Dropdown>
+                                        </>
+                                    )}
+
+
+                                    {/* <a href="#modalLogin"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalLogin"
                                         className="tf-btn btn-line btn-login">
@@ -126,7 +148,7 @@ const Header = () => {
                                             <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                         </svg>
                                         Sign in
-                                    </a>
+                                    </a> */}
                                     {/* <div className="flat-bt-top">
                                         <a className="tf-btn primary" href="add-property.html">
                                             <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -178,6 +200,8 @@ const Header = () => {
 
                 <SignInModal />
                 <SignUpModal />
+                <ForgetModal />
+                <OtpModal />
             </header>
             {/* End Main Header */}
         </>

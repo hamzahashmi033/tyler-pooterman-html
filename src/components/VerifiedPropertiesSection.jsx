@@ -73,11 +73,11 @@ const ALL_PROPS = [
 ];
 
 const TABS = [
-    { id: "allProps",      label: "All Properties",   props: ALL_PROPS },
-    { id: "highScore",     label: "High Score 90+",   props: [ALL_PROPS[0], ALL_PROPS[2], ALL_PROPS[4]] },
-    { id: "recentUpdate",  label: "Recently Updated", props: [ALL_PROPS[2], ALL_PROPS[0], ALL_PROPS[4]] },
-    { id: "hvacVerified",  label: "HVAC Verified",    props: [ALL_PROPS[1], ALL_PROPS[3], ALL_PROPS[0]] },
-    { id: "fullyDocs",     label: "Fully Documented", props: [ALL_PROPS[0], ALL_PROPS[2], ALL_PROPS[4]] },
+    { id: "allProps", label: "All Properties", props: ALL_PROPS },
+    { id: "highScore", label: "High Score 90+", props: [ALL_PROPS[0], ALL_PROPS[2], ALL_PROPS[4]] },
+    { id: "recentUpdate", label: "Recently Updated", props: [ALL_PROPS[2], ALL_PROPS[0], ALL_PROPS[4]] },
+    { id: "hvacVerified", label: "HVAC Verified", props: [ALL_PROPS[1], ALL_PROPS[3], ALL_PROPS[0]] },
+    { id: "fullyDocs", label: "Fully Documented", props: [ALL_PROPS[0], ALL_PROPS[2], ALL_PROPS[4]] },
 ];
 
 // ── Location SVG ──────────────────────────────────────────────────────────────
@@ -192,7 +192,7 @@ const VerifiedPropertiesSection = () => (
         `}</style>
 
         <section className="flat-section flat-recommended pt-0" style={{ background: C.bg }}>
-            <div className="container" style={{paddingTop:"60px"}}>
+            <div className="container" style={{ paddingTop: "60px" }}>
 
                 {/* ── Header ── */}
                 <div data-animate="up" className="box-title text-center wow fadeInUp">
@@ -233,6 +233,7 @@ const VerifiedPropertiesSection = () => (
                             <li key={tab.id} className="nav-tab-item" role="presentation">
                                 <a
                                     href={`#${tab.id}`}
+                                    style={{ backgroundColor: "#fff" }}
                                     className={`nav-link-item${i === 0 ? " active" : ""}`}
                                     data-bs-toggle="tab"
                                 >

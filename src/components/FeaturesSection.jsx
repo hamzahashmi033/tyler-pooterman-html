@@ -1,3 +1,101 @@
+import { Link } from "react-router-dom";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+
+
+
+const data = [
+    {
+        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
+        address: "142 Maple Avenue, Austin, TX",
+        score: 86,
+        reportItems: [
+            { label: "Year Built", value: "2015" },
+            { label: "Lot Size", value: "2,400 sqft" },
+            { label: "Value", value: "$450,000" },
+            { label: "Condition", value: "Good" },
+            { label: "Bedrooms", value: "3" },
+            { label: "Bathrooms", value: "2" },
+            { label: "Parking", value: "2-car garage" },
+            { label: "Neighborhood", value: "Suburban, quiet area" },
+        ],
+        propertyHealthScore: 86,
+        healthDescription: "Good - Minor Updates Needed"
+    },
+    {
+        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
+        address: "55 Sunset Blvd, Phoenix, AZ",
+        score: 92,
+        reportItems: [
+            { label: "Year Built", value: "2018" },
+            { label: "Lot Size", value: "3,000 sqft" },
+            { label: "Value", value: "$520,000" },
+            { label: "Condition", value: "Excellent" },
+            { label: "Bedrooms", value: "4" },
+            { label: "Bathrooms", value: "3" },
+            { label: "Parking", value: "3-car garage" },
+            { label: "Neighborhood", value: "Urban, near parks and shopping" },
+        ],
+        propertyHealthScore: 92,
+        healthDescription: "Excellent - No Improvements Needed"
+    },
+    {
+        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
+        address: "420 Oak Street, San Francisco, CA",
+        score: 80,
+        reportItems: [
+            { label: "Year Built", value: "2000" },
+            { label: "Lot Size", value: "1,800 sqft" },
+            { label: "Value", value: "$750,000" },
+            { label: "Condition", value: "Fair" },
+            { label: "Bedrooms", value: "2" },
+            { label: "Bathrooms", value: "1" },
+            { label: "Parking", value: "Street parking" },
+            { label: "Neighborhood", value: "Central, high-traffic area" },
+        ],
+        propertyHealthScore: 85,
+        healthDescription: "Fair - Needs Renovation"
+    },
+    {
+        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
+        address: "101 Park Avenue, New York, NY",
+        score: 95,
+        reportItems: [
+            { label: "Year Built", value: "2020" },
+            { label: "Lot Size", value: "2,100 sqft" },
+            { label: "Value", value: "$1,200,000" },
+            { label: "Condition", value: "Brand New" },
+            { label: "Bedrooms", value: "3" },
+            { label: "Bathrooms", value: "3" },
+            { label: "Parking", value: "Private parking garage" },
+            { label: "Neighborhood", value: "Luxury, prime location" },
+        ],
+        propertyHealthScore: 95,
+        healthDescription: "Excellent - Brand New Construction"
+    }
+];
+// Arrow Style (clean + overlay)
+const arrowStyle = (position) => ({
+    position: "absolute",
+    top: "50%",
+    transform: "translateY(-50%)",
+    [position]: "-40px",
+    zIndex: 10,
+    background: "#fff",
+    border: "1px solid #ddd",
+    borderRadius: "50%",
+    width: "36px",
+    height: "36px",
+    cursor: "pointer",
+    boxShadow: "0 4px 10px rgba(0,0,0,0.2)",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+});
+
+
 const C = {
     bg: "#f3f7fd",
     white: "#ffffff",
@@ -266,6 +364,30 @@ const FeaturesSection = () => {
                         </div>
                     ))}
                 </div>
+
+                <div style={{ textAlign: "center", marginBottom: "72px" }}>
+                    <Link
+                        to="/all-services"
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "8px",
+                            padding: "12px 28px",
+                            borderRadius: "10px",
+                            border: `1px solid ${C.primaryBorder}`,
+                            background: C.primary,
+                            color: "#fff",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            textDecoration: "none",
+                            boxShadow: "0 8px 20px rgba(21,99,223,0.25)",
+                            transition: "all 0.2s",
+                        }}
+                    >
+                        View All Services
+                    </Link>
+                </div>
             </div>
 
             {/* ── Listings Carousel (full bleed) ── */}
@@ -324,104 +446,210 @@ const FeaturesSection = () => {
                         {[...row2, ...row2].map((p, i) => <ListingCard key={i} p={p} />)}
                     </div>
                 </div>
+
+                <div style={{ textAlign: "center", marginTop: "34px" }}>
+                    <Link
+                        to="/all-properties"
+                        style={{
+                            display: "inline-flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            gap: "8px",
+                            padding: "12px 28px",
+                            borderRadius: "10px",
+                            border: `1px solid ${C.primaryBorder}`,
+                            background: C.primary,
+                            color: "#fff",
+                            fontSize: "14px",
+                            fontWeight: "700",
+                            textDecoration: "none",
+                            boxShadow: "0 8px 20px rgba(21,99,223,0.25)",
+                            transition: "all 0.2s",
+                        }}
+                    >
+                        View All Properties
+                    </Link>
+                </div>
             </div>
 
             {/* ── Report Value Highlight ── */}
-            <div className="container" style={{ position: "relative", zIndex: 1, padding: "72px 12px 80px" }}>
-                <div style={{
-                    borderRadius: "24px", overflow: "hidden",
-                    border: `1px solid ${C.primaryBorder}`,
-                    boxShadow: `0 8px 40px rgba(21,99,223,0.10)`,
-                    display: "grid", gridTemplateColumns: "1fr 1fr",
-                }}>
-                    {/* Left: copy */}
-                    <div style={{
-                        background: `linear-gradient(135deg, ${C.primary} 0%, #0d4fc4 100%)`,
-                        padding: "48px 44px",
-                        display: "flex", flexDirection: "column", justifyContent: "center",
-                    }}>
-                        <div style={{
-                            display: "inline-flex", alignItems: "center", gap: "8px",
-                            background: "rgba(255,255,255,0.12)", borderRadius: "100px",
-                            padding: "5px 14px", marginBottom: "22px", width: "fit-content",
-                        }}>
-                            <span style={{ fontSize: "12px", fontWeight: "600", color: "rgba(255,255,255,0.9)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                                Premium Report
-                            </span>
-                        </div>
-                        <h3 style={{
-                            fontSize: "clamp(22px, 2.5vw, 32px)", fontWeight: "800",
-                            color: "#ffffff", lineHeight: "1.25", marginBottom: "16px", letterSpacing: "-0.02em",
-                        }}>
-                            One report.<br />Complete property<br />intelligence.
-                        </h3>
-                        <p style={{ fontSize: "15px", color: "rgba(255,255,255,0.75)", lineHeight: "1.7", marginBottom: "32px", maxWidth: "320px" }}>
-                            A single $30 unlock gives buyers and agents the full verified history — every record, every provider, every score.
-                        </p>
-                        <div style={{ display: "flex", gap: "12px", flexWrap: "wrap" }}>
-                            <button style={{
-                                padding: "12px 26px", background: "#ffffff", border: "none",
-                                borderRadius: "10px", color: C.primary, fontWeight: "700", fontSize: "14px",
-                                cursor: "pointer", boxShadow: "0 4px 16px rgba(0,0,0,0.15)",
-                                transition: "transform 0.15s, box-shadow 0.15s",
-                            }}
-                                onMouseEnter={(e) => { e.target.style.transform = "translateY(-1px)"; e.target.style.boxShadow = "0 6px 24px rgba(0,0,0,0.2)"; }}
-                                onMouseLeave={(e) => { e.target.style.transform = "translateY(0)"; e.target.style.boxShadow = "0 4px 16px rgba(0,0,0,0.15)"; }}
-                            >
-                                Unlock a Report →
-                            </button>
-                            <button style={{
-                                padding: "12px 26px", background: "transparent",
-                                border: "1.5px solid rgba(255,255,255,0.35)", borderRadius: "10px",
-                                color: "rgba(255,255,255,0.85)", fontWeight: "700", fontSize: "14px",
-                                cursor: "pointer", transition: "all 0.15s",
-                            }}
-                                onMouseEnter={(e) => { e.target.style.background = "rgba(255,255,255,0.12)"; e.target.style.borderColor = "rgba(255,255,255,0.6)"; }}
-                                onMouseLeave={(e) => { e.target.style.background = "transparent"; e.target.style.borderColor = "rgba(255,255,255,0.35)"; }}
-                            >
-                                See Sample Report
-                            </button>
-                        </div>
-                    </div>
+            <div className="container" style={{ position: "relative", zIndex: 1, padding: "72px 12px 80px", }}>
+                <div style={{ position: "relative" }}>
+                    {/* Left and Right Navigation Arrows */}
+                    <button
+                        className="prev-btn"
+                        style={arrowStyle("left")}
+                    >
+                        ←
+                    </button>
+                    <button
+                        className="next-btn"
+                        style={arrowStyle("right")}
+                    >
+                        →
+                    </button>
 
-                    {/* Right: report preview */}
-                    <div style={{ background: C.white, padding: "36px 36px 32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "20px" }}>
-                            <div>
-                                <div style={{ fontSize: "11px", color: C.muted, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "4px" }}>
-                                    Property Intelligence Report
+                    <Swiper
+                        modules={[Navigation]}
+                        navigation={{
+                            nextEl: ".next-btn",
+                            prevEl: ".prev-btn"
+                        }}
+                        spaceBetween={20}
+                        slidesPerView={1}
+                        loop
+                    >
+                        {data.map((item, index) => (
+                            <SwiperSlide key={index}>
+                                <div style={{
+                                    borderRadius: "24px",
+                                    overflow: "hidden",
+                                    border: `1px solid ${C.primaryBorder}`,
+                                    boxShadow: `0 8px 40px rgba(21,99,223,0.10)`,
+                                    display: "grid",
+                                    gridTemplateColumns: "1fr 1fr",
+                                }}>
+                                    {/* Left Image */}
+                                    <div>
+                                        <img
+                                            src={item.image}
+                                            alt=""
+                                            style={{ width: "100%", height: "100%", objectFit: "fill" }}
+                                        />
+                                    </div>
+
+                                    {/* Right Content */}
+                                    <div style={{
+                                        background: C.white,
+                                        padding: "36px 36px 32px",
+                                        display: "flex",
+                                        flexDirection: "column",
+                                        justifyContent: "center"
+                                    }}>
+
+                                        {/* Header */}
+                                        <div style={{
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            marginBottom: "20px"
+                                        }}>
+                                            <div>
+                                                <div style={{
+                                                    fontSize: "11px",
+                                                    color: C.muted,
+                                                    textTransform: "uppercase",
+                                                    letterSpacing: "0.1em",
+                                                    marginBottom: "4px"
+                                                }}>
+                                                    Property Intelligence Report
+                                                </div>
+
+                                                <div style={{
+                                                    fontSize: "15px",
+                                                    fontWeight: "700",
+                                                    color: C.dark
+                                                }}>
+                                                    {item.address}
+                                                </div>
+                                            </div>
+
+                                            <div style={{
+                                                background: C.primaryLight,
+                                                border: `1px solid ${C.primaryBorder}`,
+                                                borderRadius: "8px",
+                                                padding: "5px 12px",
+                                                fontSize: "12px",
+                                                fontWeight: "700",
+                                                color: C.primary
+                                            }}>
+                                                ✓ VERIFIED
+                                            </div>
+                                        </div>
+
+                                        {/* GRID ITEMS */}
+                                        <div style={{
+                                            display: "grid",
+                                            gridTemplateColumns: "1fr 1fr",
+                                            gap: "8px",
+                                            marginBottom: "20px"
+                                        }}>
+                                            {item.reportItems.map((rep, i) => (
+                                                <div key={i} style={{
+                                                    padding: "12px 14px",
+                                                    borderRadius: "10px",
+                                                    background: C.bg,
+                                                    border: `1px solid ${C.border}`
+                                                }}>
+                                                    <div style={{
+                                                        fontSize: "11px",
+                                                        color: C.muted,
+                                                        textTransform: "uppercase",
+                                                        marginBottom: "4px"
+                                                    }}>
+                                                        {rep.label}
+                                                    </div>
+
+                                                    <div style={{
+                                                        fontSize: "15px",
+                                                        fontWeight: "800",
+                                                        color: i === 2 ? C.primary : C.dark
+                                                    }}>
+                                                        {rep.value}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        {/* SCORE */}
+                                        <div style={{
+                                            background: C.bg,
+                                            borderRadius: "12px",
+                                            border: `1px solid ${C.border}`,
+                                            padding: "14px 16px"
+                                        }}>
+                                            <div style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                marginBottom: "8px"
+                                            }}>
+                                                <span style={{ fontSize: "12px", fontWeight: "600" }}>
+                                                    Property Health Score
+                                                </span>
+
+                                                <span style={{
+                                                    fontSize: "14px",
+                                                    fontWeight: "800",
+                                                    color: C.primary
+                                                }}>
+                                                    {item.propertyHealthScore} / 100
+                                                </span>
+                                            </div>
+
+                                            <div style={{
+                                                height: "8px",
+                                                borderRadius: "100px",
+                                                background: C.border,
+                                                overflow: "hidden"
+                                            }}>
+                                                <div style={{
+                                                    height: "100%",
+                                                    width: `${item.propertyHealthScore}%`,
+                                                    background: `linear-gradient(90deg, ${C.primary}, #0099CC)`
+                                                }} />
+                                            </div>
+                                        </div>
+
+                                    </div>
                                 </div>
-                                <div style={{ fontSize: "15px", fontWeight: "700", color: C.dark }}>142 Maple Avenue, Austin TX</div>
-                            </div>
-                            <div style={{ background: C.primaryLight, border: `1px solid ${C.primaryBorder}`, borderRadius: "8px", padding: "5px 12px", fontSize: "12px", fontWeight: "700", color: C.primary }}>
-                                ✓ VERIFIED
-                            </div>
-                        </div>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "8px", marginBottom: "20px" }}>
-                            {reportItems.map((item, i) => (
-                                <div key={i} style={{ padding: "12px 14px", borderRadius: "10px", background: C.bg, border: `1px solid ${C.border}` }}>
-                                    <div style={{ fontSize: "11px", color: C.muted, textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "4px" }}>{item.label}</div>
-                                    <div style={{ fontSize: "15px", fontWeight: "800", color: i === 2 ? C.primary : C.dark }}>{item.value}</div>
-                                </div>
-                            ))}
-                        </div>
-                        <div style={{ background: C.bg, borderRadius: "12px", border: `1px solid ${C.border}`, padding: "14px 16px" }}>
-                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "8px" }}>
-                                <span style={{ fontSize: "12px", fontWeight: "600", color: C.dark }}>Property Health Score</span>
-                                <span style={{ fontSize: "14px", fontWeight: "800", color: C.primary }}>86 / 100</span>
-                            </div>
-                            <div style={{ height: "8px", borderRadius: "100px", background: C.border, overflow: "hidden" }}>
-                                <div style={{ height: "100%", width: "86%", borderRadius: "100px", background: `linear-gradient(90deg, ${C.primary}, #0099CC)`, boxShadow: `0 2px 8px rgba(21,99,223,0.4)` }} />
-                            </div>
-                            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "6px" }}>
-                                <span style={{ fontSize: "11px", color: C.muted }}>0</span>
-                                <span style={{ fontSize: "11px", color: C.muted }}>Excellent</span>
-                                <span style={{ fontSize: "11px", color: C.muted }}>100</span>
-                            </div>
-                        </div>
-                    </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
                 </div>
+
             </div>
+
+
 
             <style>{`
                 @keyframes scrollLeft {

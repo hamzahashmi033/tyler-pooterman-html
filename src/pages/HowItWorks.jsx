@@ -27,7 +27,8 @@ const STEPS = [
         number: "03",
         title: "System Builds Health Score",
         description:
-            "Our platform organizes all service events and inspection updates into a property health score so users can quickly spot strengths and risks.",
+            "Our platform organizes all service events and inspection updates into a comprehensive property health score so users can quickly spot strengths and risks."
+        ,
         tag: "Analyze",
     },
 
@@ -68,7 +69,7 @@ const HowItWorks = () => {
                         <div className="breadcrumb-content">
                             <ul className="breadcrumb">
                                 <li><a href="/" className="text-white">Home</a></li>
-                                
+
                                 <li className="text-white">/ How It Works</li>
                             </ul>
                             <h1 className="text-center text-white title">How It Works</h1>
@@ -99,12 +100,17 @@ const HowItWorks = () => {
                                             background: "#ffffff",
                                             border: "1px solid #e9eef5",
                                             borderRadius: "16px",
-                                            padding: "26px 22px",
-                                            height: "100%",
+                                            padding: "24px",
+                                            height: "260px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            flexDirection: "column",
+                                            gap: "10px",
                                             boxShadow: "0 10px 30px rgba(14, 44, 87, 0.06)",
                                         }}
                                     >
-                                        <div className="d-flex justify-content-between align-items-center mb-12">
+                                        <div className="d-flex justify-content-between align-items-center mb-12 w-100">
                                             <span
                                                 style={{
                                                     display: "inline-flex",
@@ -135,8 +141,8 @@ const HowItWorks = () => {
                                                 {step.tag}
                                             </span>
                                         </div>
-                                        <h5 className="mb-10">{step.title}</h5>
-                                        <p className="text-variant-1 body-2 mb-0">{step.description}</p>
+                                        <h5 className="mb-0 w-100" style={{ fontSize: "21px", fontWeight: "800" }}>{step.title}</h5>
+                                        <p className="text-variant-1 body-2 mb-0" style={{ fontSize: "16px" }}>{step.description}</p>
                                     </div>
                                 </div>
                             ))}
@@ -155,16 +161,40 @@ const HowItWorks = () => {
                                         borderRadius: "18px",
                                         border: "1px solid #dce8fb",
                                         background: "linear-gradient(135deg, #f8fbff 0%, #edf4ff 100%)",
-                                        padding: "28px",
+                                        padding: "22px",
                                         height: "100%",
                                     }}
                                 >
                                     <div className="text-subtitle text-primary">For Homeowners & Sellers</div>
-                                    <h4 className="mt-8 mb-10">Build trust before listing your home</h4>
+                                    <h4 className="mt-8 mb-10" style={{ fontSize: "26px", fontWeight: "800" }}>Build trust before listing your home</h4>
                                     <ul className="list">
-                                        <li className="text-variant-1">Claim your property profile and verify ownership.</li>
-                                        <li className="text-variant-1">Collect old and new maintenance records in one timeline.</li>
-                                        <li className="text-variant-1">Share report links with buyers to reduce negotiation friction.</li>
+                                        <li className="text-variant-1 mb-2">
+                                            <span style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
+                                                    <circle cx="10" cy="10" r="9" stroke="#4CAF50" strokeWidth="2" />
+                                                    <path d="M7 10L9 12L13 8" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <span>Claim your property profile and verify ownership.</span>
+                                            </span>
+                                        </li>
+                                        <li className="text-variant-1 mb-2">
+                                            <span style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
+                                                    <circle cx="10" cy="10" r="9" stroke="#4CAF50" strokeWidth="2" />
+                                                    <path d="M7 10L9 12L13 8" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <span>Collect old and new maintenance records in one timeline.</span>
+                                            </span>
+                                        </li>
+                                        <li className="text-variant-1 mb-2">
+                                            <span style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
+                                                    <circle cx="10" cy="10" r="9" stroke="#4CAF50" strokeWidth="2" />
+                                                    <path d="M7 10L9 12L13 8" stroke="#4CAF50" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <span>Share report links with buyers to reduce negotiation friction.</span>
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -176,16 +206,41 @@ const HowItWorks = () => {
                                         borderRadius: "18px",
                                         border: "1px solid #dce8fb",
                                         background: "linear-gradient(135deg, #ffffff 0%, #f7faff 100%)",
-                                        padding: "28px",
+                                        padding: "22px",
                                         height: "100%",
                                     }}
                                 >
                                     <div className="text-subtitle text-primary">For Buyers, Agents & Providers</div>
-                                    <h4 className="mt-8 mb-10">Buy, advise, and service with confidence</h4>
+
+                                    <h4 className="mt-8 mb-10" style={{ fontSize: "26px", fontWeight: "800" }}>Buy, advise, and service with confidence</h4>
                                     <ul className="list">
-                                        <li className="text-variant-1">Buyers unlock reports and avoid hidden repair costs.</li>
-                                        <li className="text-variant-1">Agents use health score insights during due diligence.</li>
-                                        <li className="text-variant-1">Providers grow credibility through verified job history.</li>
+                                        <li className="text-variant-1 mb-2">
+                                            <span style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
+                                                    <circle cx="10" cy="10" r="9" stroke="#2196F3" strokeWidth="2" />
+                                                    <path d="M7 10L9 12L13 8" stroke="#2196F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <span>Buyers unlock reports and avoid hidden repair costs.</span>
+                                            </span>
+                                        </li>
+                                        <li className="text-variant-1 mb-2">
+                                            <span style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
+                                                    <circle cx="10" cy="10" r="9" stroke="#2196F3" strokeWidth="2" />
+                                                    <path d="M7 10L9 12L13 8" stroke="#2196F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <span>Agents use health score insights during due diligence.</span>
+                                            </span>
+                                        </li>
+                                        <li className="text-variant-1 mb-2">
+                                            <span style={{ display: "flex", alignItems: "flex-start", gap: "10px" }}>
+                                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style={{ flexShrink: 0, marginTop: "2px" }}>
+                                                    <circle cx="10" cy="10" r="9" stroke="#2196F3" strokeWidth="2" />
+                                                    <path d="M7 10L9 12L13 8" stroke="#2196F3" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                                                </svg>
+                                                <span>Providers grow credibility through verified job history.</span>
+                                            </span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>

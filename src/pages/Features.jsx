@@ -110,15 +110,20 @@ const Features = () => {
                                         data-wow-delay=".2s"
                                         data-wow-duration="2000ms"
                                         style={{
-                                            background: "#fff",
+                                            background: "#ffffff",
                                             border: "1px solid #e9eef5",
                                             borderRadius: "16px",
                                             padding: "24px",
-                                            height: "100%",
+                                            height: "230px",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "space-between",
+                                            flexDirection: "column",
+                                            gap: "10px",
                                             boxShadow: "0 10px 30px rgba(14, 44, 87, 0.06)",
                                         }}
                                     >
-                                        <div className="d-flex justify-content-between align-items-center mb-14">
+                                        <div className="d-flex justify-content-between align-items-center mb-14 w-100">
                                             <span
                                                 style={{
                                                     width: "44px",
@@ -149,8 +154,8 @@ const Features = () => {
                                                 {feature.tag}
                                             </span>
                                         </div>
-                                        <h5 className="mb-10">{feature.title}</h5>
-                                        <p className="text-variant-1 body-2 mb-0">{feature.desc}</p>
+                                        <h5 className="mb-0 w-100" style={{ fontSize: "21px", fontWeight: "800" }}>{feature.title}</h5>
+                                        <p className="text-variant-1 body-2 mb-0" style={{ fontSize: "15px" }}>{feature.desc}</p>
                                     </div>
                                 </div>
                             ))}

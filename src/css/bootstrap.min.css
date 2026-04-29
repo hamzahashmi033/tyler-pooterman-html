@@ -478,7 +478,8 @@ tr {
 }
 
 label {
-    display: inline-block
+    display: inline-block;
+    margin-bottom: 5px !important;
 }
 
 button {

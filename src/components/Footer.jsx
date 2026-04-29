@@ -153,7 +153,6 @@ const Footer = () => {
             <footer className="footer-new">
                 <div className="footer-inner">
                     <div className="container" style={{ paddingTop: "72px" }}>
-
                         {/* ── CTA Strip ── */}
                         <div data-animate="up" className="footer-cta-strip">
                             <div>
@@ -186,11 +185,10 @@ const Footer = () => {
 
                         {/* ── Main Row: Logo + Newsletter ── */}
                         <div className="row g-5 align-items-start">
-
                             {/* Left — Logo + desc + socials */}
                             <div data-animate="left" className="col-lg-5">
-                                <a href="index.html" style={{ display: "inline-block", marginBottom: "20px" }}>
-                                    <img src="images/logo/logo-footer@2x.png" alt="logo" width="166" height="48" />
+                                <a href="/" style={{ display: "inline-block", marginBottom: "20px" }}>
+                                    <img src="/images/logo/logo-footer@2x.png" alt="logo" width="166" height="48" />
                                 </a>
                                 <p style={{
                                     fontSize: "14px", color: "rgba(255,255,255,0.5)",
@@ -332,7 +330,7 @@ const Footer = () => {
                                 </div>
                                 <div>
                                     <div style={{ fontSize: "11px", fontWeight: "700", color: "rgba(255,255,255,0.4)", textTransform: "uppercase", letterSpacing: "0.07em", marginBottom: "3px" }}>Email</div>
-                                    <div style={{ fontSize: "13.5px", color: "#fff" }}>tech.sitescouter@gmail.com</div>
+                                    <div style={{ fontSize: "13.5px", color: "#fff" }}>info@sitescouter.com</div>
                                 </div>
                             </div>
 
@@ -351,12 +349,10 @@ const Footer = () => {
                                 ©2026 Site Scouter. All Rights Reserved.
                             </div>
                             <div style={{ display: "flex", gap: "24px", flexWrap: "wrap" }}>
-                                <a href="our-service.html" className="footer-bottom-link">Terms Of Services</a>
-                                <a href="pricing.html" className="footer-bottom-link">Privacy Policy</a>
-                                <a href="contact.html" className="footer-bottom-link">Cookie Policy</a>
+                                <a href="/terms-conditions" className="footer-bottom-link">Terms & Conditions</a>
+                                <a href="/privacy-policy" className="footer-bottom-link">Privacy Policy</a>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </footer>

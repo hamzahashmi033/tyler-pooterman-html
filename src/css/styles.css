@@ -377,7 +377,8 @@ h1 {
 }
 
 h2 {
-  font-size: 44px;
+  font-size: 30px;
+  font-weight: 700 !important;
   line-height: 62px;
 }
 
@@ -961,7 +962,7 @@ label {
 .main-header {
   z-index: 999;
   width: 100%;
-  height: 90px;
+  /* height: 90px; */
   position: relative;
   background-color: #ffffff;
   padding-left: 15px;
@@ -1139,7 +1140,7 @@ label {
   width: 150px;
   height: 75px;
   object-fit: contain;
-  margin-top: 4px;
+  margin: 8px 0px !important;
   object-fit: contain;
   -webkit-transition: all 300ms ease;
   -ms-transition: all 300ms ease;
@@ -2586,7 +2587,7 @@ label {
 
 .nav-tab-recommended .nav-link-item.active,
 .nav-tab-recommended .nav-link-item:hover {
-  background-color: #1563df;
+  background-color: #1563df !important;
   color: #ffffff;
 }
 
@@ -9700,8 +9701,8 @@ label {
 
 .sidebar-menu-dashboard {
   position: fixed;
-  width: 280px;
-  min-width: 280px;
+  width: 260px;
+  min-width: 260px;
   background: #161e2d;
   height: 100%;
   top: 0;
@@ -9777,11 +9778,11 @@ label {
 }
 
 .sidebar-menu-dashboard .logo-box img {
-  width: 166px;
+  width: 130px;
 }
 
 .sidebar-menu-dashboard .user-box {
-  padding: 30px;
+  padding: 25px 10px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -9798,8 +9799,8 @@ label {
 
 .sidebar-menu-dashboard .user-box .user .icon-box {
   background-color: rgba(255, 255, 255, 0.4);
-  width: 52px;
-  height: 52px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -9822,7 +9823,7 @@ label {
 }
 
 .layout-wrap .main-content {
-  padding-left: 280px;
+  padding-left: 260px;
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
   -ms-transition: all 0.4s ease;
@@ -9857,7 +9858,8 @@ label {
 }
 
 .layout-wrap .main-content-inner {
-  padding: 47px 50px 30px;
+  padding: 25px 25px 25px;
+  background-color: #f7f7f7;
 }
 
 .layout-wrap .main-content-inner .wrapper-content .content-left {
@@ -9866,6 +9868,10 @@ label {
 
 .layout-wrap .main-content-inner .wrapper-content .content-right {
   flex-grow: 1;
+}
+
+.ip-group {
+  margin-bottom: 21px;
 }
 
 .layout-wrap .wd-listing {
