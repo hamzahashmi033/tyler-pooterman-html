@@ -1,3 +1,5 @@
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import { Form, Input, Button, Select, Typography, Card, InputNumber } from "antd";
@@ -7,6 +9,7 @@ const { Option } = Select;
 
 const HomeOwners = () => {
     const [form] = Form.useForm();
+    const [agreed, setAgreed] = useState(false);
 
     const onFinish = (values) => {
         console.log("HomeOwner Data:", values);
@@ -125,8 +128,70 @@ const HomeOwners = () => {
                                     <Input.Password size="large" />
                                 </Form.Item>
 
-                                <Form.Item style={{ marginTop: '20px' }}>
-                                    <Button type="primary" htmlType="submit" size="large" block style={{ backgroundColor: '#1562df', borderColor: '#1562df', fontFamily: "Manrope, sans-serif" }}>
+                                {/* Terms & Conditions */}
+                                <div style={{
+                                    border: "1.5px solid #D8E6F7",
+                                    borderRadius: "12px",
+                                    padding: "18px 20px",
+                                    background: agreed ? "rgba(21,99,223,0.04)" : "#fff8f8",
+                                    marginBottom: "20px",
+                                    transition: "background 0.2s, border-color 0.2s",
+                                    borderColor: agreed ? "rgba(21,99,223,0.35)" : "#f0c0c0",
+                                }}>
+                                    <label style={{ display: "flex", alignItems: "flex-start", gap: "12px", cursor: "pointer" }}>
+                                        <input
+                                            type="checkbox"
+                                            checked={agreed}
+                                            onChange={e => setAgreed(e.target.checked)}
+                                            style={{
+                                                marginTop: "3px",
+                                                width: "18px",
+                                                height: "18px",
+                                                accentColor: "#1563df",
+                                                flexShrink: 0,
+                                                cursor: "pointer",
+                                            }}
+                                        />
+                                        <span style={{ fontSize: "13px", color: "#4A5568", lineHeight: "1.65", fontFamily: "Manrope, sans-serif" }}>
+                                            <strong style={{ color: "#161E2D", display: "block", marginBottom: "6px", fontSize: "13px" }}>
+                                                Required Checkbox (Must Be Checked)
+                                            </strong>
+                                            I agree to the{" "}
+                                            <Link to="/terms-conditions" target="_blank" style={{ color: "#1563df", fontWeight: "700" }}>Terms of Use</Link>
+                                            {" "}and{" "}
+                                            <Link to="/privacy-policy" target="_blank" style={{ color: "#1563df", fontWeight: "700" }}>Privacy Policy</Link>.
+                                            {" "}I understand that:
+                                            <ul style={{ margin: "8px 0 0", paddingLeft: "18px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                                                <li>The platform does not verify or guarantee any submitted information</li>
+                                                <li>I am solely responsible for the accuracy and legality of my data</li>
+                                                <li>The platform holds no liability for pesticide use, environmental conditions, or property-related claims</li>
+                                                <li>I accept full responsibility for any legal, financial, or regulatory consequences related to my property</li>
+                                            </ul>
+                                        </span>
+                                    </label>
+                                </div>
+
+                                {!agreed && (
+                                    <p style={{ fontSize: "12px", color: "#DC3545", marginBottom: "12px", fontFamily: "Manrope, sans-serif", display: "flex", alignItems: "center", gap: "6px" }}>
+                                        <span>⚠️</span> You must accept the terms and conditions to create an account.
+                                    </p>
+                                )}
+
+                                <Form.Item style={{ marginTop: '4px', marginBottom: 0 }}>
+                                    <Button
+                                        type="primary"
+                                        htmlType="submit"
+                                        size="large"
+                                        block
+                                        disabled={!agreed}
+                                        style={{
+                                            backgroundColor: agreed ? '#1562df' : '#a0b4d6',
+                                            borderColor: agreed ? '#1562df' : '#a0b4d6',
+                                            fontFamily: "Manrope, sans-serif",
+                                            cursor: agreed ? "pointer" : "not-allowed",
+                                            transition: "background-color 0.25s, border-color 0.25s",
+                                        }}
+                                    >
                                         Create Homeowner Account
                                     </Button>
                                 </Form.Item>

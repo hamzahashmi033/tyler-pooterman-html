@@ -16,26 +16,41 @@ import TrustedSlider from "../components/TrustedSlider";
 import ProvidersSlider from "../components/ProvidersSlider";
 
 const Home = () => {
-    useEffect(() => {
-        if (window.jQuery) {
-            const $ = window.jQuery;
-            try {
-                initMain($);
-                initShortcodes($);
-                initCarousels($);
-                initRangeSliders($);
-                initAnimationHeading($);
-            } catch (err) {
-                console.error("Plugin initialization error:", err);
-            }
-        }
+  useEffect(() => {
+    const $ = window.jQuery || window.$;
+
+    if (!$) {
+      console.error("jQuery is not available");
+      return;
+    }
+
+    const initPlugins = () => {
+      try {
+        initMain($);
+        initShortcodes($);
+        initCarousels($);
+        initRangeSliders($);
+        initAnimationHeading($);
 
         if (window.WOW) {
-            new window.WOW().init();
+          new window.WOW().init();
         }
 
         initScrollAnimations();
-    }, []);
+      } catch (err) {
+        console.error("Plugin initialization error:", err);
+      }
+    };
+
+    // small delay helps when migrated sections finish rendering first
+    const timer = setTimeout(() => {
+      initPlugins();
+    }, 0);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
     return (
         <>
             <div id="wrapper">
@@ -110,7 +125,7 @@ const Home = () => {
                                 </div>
                             </div>
                         </div>
-                    </section>
+                    </section> 
 
                     <TrustedSlider />
 

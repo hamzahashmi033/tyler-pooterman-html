@@ -1,4 +1,6 @@
-const BASE = "https://homelengo.vercel.app";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { PROPERTIES } from "../data/properties";
 
 const C = {
     primary: "#1563df",
@@ -20,67 +22,21 @@ const scoreStyle = (score) => {
     return { color: C.amber, bg: C.amberLight };
 };
 
-// ── Property data ─────────────────────────────────────────────────────────────
-const ALL_PROPS = [
-    {
-        img: `${BASE}/images/home/house-13.jpg`,
-        address: "145 Brooklyn Ave, New York, NY",
-        title: "Maple Ridge Estate",
-        records: 24, score: 94, updated: "Apr 2025",
-        avatar: `${BASE}/images/avatar/avt-png1.png`, owner: "Jessica Miller",
-        badge1: "Verified ✓", badge2: "High Score",
-    },
-    {
-        img: `${BASE}/images/home/house-14.jpg`,
-        address: "210 Park Blvd, Los Angeles, CA",
-        title: "Sunset View Villa",
-        records: 18, score: 87, updated: "Mar 2025",
-        avatar: `${BASE}/images/avatar/avt-png2.png`, owner: "Michael Chen",
-        badge1: "Verified ✓", badge2: "HVAC Done",
-    },
-    {
-        img: `${BASE}/images/home/house-15.jpg`,
-        address: "88 Ocean Drive, Miami, FL",
-        title: "Palm Crest Residence",
-        records: 31, score: 96, updated: "Apr 2025",
-        avatar: `${BASE}/images/avatar/avt-png3.png`, owner: "Sarah Johnson",
-        badge1: "Verified ✓", badge2: "Top Rated",
-    },
-    {
-        img: `${BASE}/images/home/house-16.jpg`,
-        address: "56 Highland Rd, Denver, CO",
-        title: "Rocky Mountain Home",
-        records: 12, score: 78, updated: "Jan 2025",
-        avatar: `${BASE}/images/avatar/avt-png4.png`, owner: "David Brown",
-        badge1: "Verified ✓", badge2: "HVAC Done",
-    },
-    {
-        img: `${BASE}/images/home/house-17.jpg`,
-        address: "320 Elm Street, Chicago, IL",
-        title: "Greenwood Manor",
-        records: 27, score: 91, updated: "Mar 2025",
-        avatar: `${BASE}/images/avatar/avt-png5.png`, owner: "Emily Davis",
-        badge1: "Verified ✓", badge2: "Full Docs",
-    },
-    {
-        img: `${BASE}/images/home/house-18.jpg`,
-        address: "445 Cedar Ave, Phoenix, AZ",
-        title: "Desert Oasis Estate",
-        records: 9, score: 72, updated: "Feb 2025",
-        avatar: `${BASE}/images/avatar/avt-png6.png`, owner: "Robert Wilson",
-        badge1: "Verified ✓", badge2: "Roof Done",
-    },
-];
+const highScoreProps = PROPERTIES.filter((p) => p.score >= 90).slice(0, 6);
+const recentProps = [...PROPERTIES]
+    .sort((a, b) => (b.lastUpdated > a.lastUpdated ? 1 : -1))
+    .slice(0, 6);
+const houseProps = PROPERTIES.filter((p) => p.type === "House").slice(0, 6);
+const condoVillaProps = PROPERTIES.filter((p) => p.type !== "House").slice(0, 6);
 
 const TABS = [
-    { id: "allProps", label: "All Properties", props: ALL_PROPS },
-    { id: "highScore", label: "High Score 90+", props: [ALL_PROPS[0], ALL_PROPS[2], ALL_PROPS[4]] },
-    { id: "recentUpdate", label: "Recently Updated", props: [ALL_PROPS[2], ALL_PROPS[0], ALL_PROPS[4]] },
-    { id: "hvacVerified", label: "HVAC Verified", props: [ALL_PROPS[1], ALL_PROPS[3], ALL_PROPS[0]] },
-    { id: "fullyDocs", label: "Fully Documented", props: [ALL_PROPS[0], ALL_PROPS[2], ALL_PROPS[4]] },
+    { id: "allProps", label: "All Properties", props: PROPERTIES.slice(0, 6) },
+    { id: "highScore", label: "High Score 90+", props: highScoreProps },
+    { id: "recentUpdate", label: "Recently Updated", props: recentProps },
+    { id: "houseType", label: "Houses", props: houseProps },
+    { id: "condoVilla", label: "Condo / Villa", props: condoVillaProps },
 ];
 
-// ── Location SVG ──────────────────────────────────────────────────────────────
 const PinSVG = () => (
     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M10 7C10 7.53043 9.78929 8.03914 9.41421 8.41421C9.03914 8.78929 8.53043 9 8 9C7.46957 9 6.96086 8.78929 6.58579 8.41421C6.21071 8.03914 6 7.53043 6 7C6 6.46957 6.21071 5.96086 6.58579 5.58579C6.96086 5.21071 7.46957 5 8 5C8.53043 5 9.03914 5.21071 9.41421 5.58579C9.78929 5.96086 10 6.46957 10 7Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
@@ -88,26 +44,30 @@ const PinSVG = () => (
     </svg>
 );
 
-// ── Single property card ──────────────────────────────────────────────────────
 const PropCard = ({ p }) => {
     const sc = scoreStyle(p.score);
     return (
-        <div className="homelengo-box">
+        <Link
+            to={`/property-deatils/${p.id}`}
+            className="homelengo-box"
+            style={{ display: "block", textDecoration: "none", color: "inherit" }}
+        >
             <div className="archive-top">
-                <a href="#" className="images-group">
+                <div className="images-group">
                     <div className="images-style">
-                        <img className="lazyload" data-src={p.img} src={p.img} alt={p.title} />
+                        <img
+                            className="lazyload"
+                            data-src={p.img}
+                            src={p.img}
+                            alt={p.address}
+                            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        />
                     </div>
-                    {/* Top badges */}
                     <div className="top">
                         <ul className="d-flex gap-6">
-                            <li className="flag-tag primary">{p.badge1}</li>
-                            <li className="flag-tag style-1"
-                                style={{ background: p.badge2 === "High Score" || p.badge2 === "Top Rated" ? C.green : undefined }}>
-                                {p.badge2}
-                            </li>
+                            <li className="flag-tag primary">Verified ✓</li>
+                            <li className="flag-tag style-1">{p.type}</li>
                         </ul>
-                        {/* Score pill top-right */}
                         <div style={{
                             position: "absolute", top: "0px", right: "12px",
                             background: sc.bg, border: `1px solid ${sc.color}22`,
@@ -121,20 +81,18 @@ const PropCard = ({ p }) => {
                             </span>
                         </div>
                     </div>
-                    {/* Address strip */}
                     <div className="bottom">
                         <PinSVG />
                         {p.address}
                     </div>
-                </a>
+                </div>
             </div>
 
             <div className="archive-bottom">
                 <div className="content-top">
                     <h6 className="text-capitalize">
-                        <a href="#" className="link">{p.title}</a>
+                        <span className="link">{p.address}</span>
                     </h6>
-                    {/* Service-history meta — replaces beds/baths/sqft */}
                     <ul className="meta-list" style={{ flexWrap: "wrap", gap: "6px 14px" }}>
                         <li className="item">
                             <span style={{ fontSize: "13px" }}>📋</span>
@@ -149,131 +107,124 @@ const PropCard = ({ p }) => {
                         <li className="item">
                             <span style={{ fontSize: "13px" }}>🔄</span>
                             <span className="text-variant-1">Updated:</span>
-                            <span className="fw-6">{p.updated}</span>
+                            <span className="fw-6">{p.lastUpdated}</span>
                         </li>
                     </ul>
                 </div>
 
                 <div className="content-bottom">
-                    {/* Owner avatar + name */}
-                    <div className="d-flex gap-8 align-items-center">
-                        <div className="avatar avt-40 round">
-                            <img src={p.avatar} alt={p.owner} />
-                        </div>
-                        <span style={{ fontSize: "13px", color: C.mid }}>{p.owner}</span>
+                    <div style={{ fontSize: "13px", color: C.mid, fontStyle: "italic" }}>
+                        {p.tag}
                     </div>
-                    {/* CTA instead of price */}
-                    <a href="#" style={{
+                    <div style={{
                         display: "inline-flex", alignItems: "center", gap: "6px",
                         background: C.primary, color: "#fff",
                         borderRadius: "8px", padding: "7px 14px",
                         fontSize: "12px", fontWeight: "700",
                         textDecoration: "none", whiteSpace: "nowrap",
                         boxShadow: "0 3px 12px rgba(21,99,223,0.3)",
-                        transition: "opacity 0.15s",
-                    }}
-                        onMouseEnter={e => e.currentTarget.style.opacity = "0.85"}
-                        onMouseLeave={e => e.currentTarget.style.opacity = "1"}
-                    >
-                        Unlock — $30
-                    </a>
+                    }}>
+                        View Report →
+                    </div>
                 </div>
             </div>
-        </div>
+        </Link>
     );
 };
 
-// ── Section ───────────────────────────────────────────────────────────────────
-const VerifiedPropertiesSection = () => (
-    <>
-        <style>{`
-            .vps-tab-nav .nav-link-item { position: relative; }
-            .vps-score-pill { line-height: 1; }
-        `}</style>
+const VerifiedPropertiesSection = () => {
+    const [activeTab, setActiveTab] = useState(0);
 
-        <section className="flat-section flat-recommended pt-0" style={{ background: C.bg }}>
-            <div className="container" style={{ paddingTop: "60px" }}>
+    return (
+        <>
+            <style>{`
+                .vps-tab-nav .nav-link-item { position: relative; }
+                .vps-score-pill { line-height: 1; }
+            `}</style>
 
-                {/* ── Header ── */}
-                <div data-animate="up" className="box-title text-center wow fadeInUp">
-                    {/* Badge */}
-                    <div style={{
-                        display: "inline-flex", alignItems: "center", gap: "8px",
-                        background: C.primaryLight, border: `1px solid ${C.primaryBorder}`,
-                        borderRadius: "100px", padding: "6px 18px", marginBottom: "16px",
-                    }}>
-                        <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: C.primary, display: "inline-block" }} />
-                        <span style={{ fontSize: "12px", fontWeight: "600", color: C.primary, textTransform: "uppercase", letterSpacing: "0.08em" }}>
-                            Verified Properties
-                        </span>
-                    </div>
+            <section className="flat-section flat-recommended pt-0" style={{ background: C.bg }}>
+                <div className="container" style={{ paddingTop: "60px" }}>
 
-                    <h3 className="title mt-4" style={{ color: C.dark, letterSpacing: "-0.02em" }}>
-                        Properties with a{" "}
-                        <span style={{
-                            background: `linear-gradient(90deg, ${C.primary}, #0099CC)`,
-                            WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+                    <div data-animate="up" className="box-title text-center wow fadeInUp">
+                        <div style={{
+                            display: "inline-flex", alignItems: "center", gap: "8px",
+                            background: C.primaryLight, border: `1px solid ${C.primaryBorder}`,
+                            borderRadius: "100px", padding: "6px 18px", marginBottom: "16px",
                         }}>
-                            Complete Service History
-                        </span>
-                    </h3>
+                            <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: C.primary, display: "inline-block" }} />
+                            <span style={{ fontSize: "12px", fontWeight: "600", color: C.primary, textTransform: "uppercase", letterSpacing: "0.08em" }}>
+                                Verified Properties
+                            </span>
+                        </div>
 
-                    <p style={{
-                        fontSize: "16px", color: C.mid, lineHeight: "1.7",
-                        maxWidth: "560px", margin: "12px auto 0",
-                    }}>
-                        Every listing below is backed by verified maintenance records, credentialed provider work, and a transparent Property Health Score.
-                    </p>
-                </div>
+                        <h3 className="title mt-4" style={{ color: C.dark, letterSpacing: "-0.02em" }}>
+                            Properties with a{" "}
+                            <span style={{
+                                background: `linear-gradient(90deg, ${C.primary}, #0099CC)`,
+                                WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", backgroundClip: "text",
+                            }}>
+                                Complete Service History
+                            </span>
+                        </h3>
 
-                {/* ── Tabs ── */}
-                <div className="flat-tab-recommended flat-animate-tab vps-tab-nav wow fadeInUp" data-wow-delay=".2s">
-                    <ul className="nav-tab-recommended justify-content-md-center" role="tablist">
-                        {TABS.map((tab, i) => (
-                            <li key={tab.id} className="nav-tab-item" role="presentation">
-                                <a
-                                    href={`#${tab.id}`}
-                                    style={{ backgroundColor: "#fff" }}
-                                    className={`nav-link-item${i === 0 ? " active" : ""}`}
-                                    data-bs-toggle="tab"
-                                >
-                                    {tab.label}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
-
-                    {/* ── Tab panes ── */}
-                    <div className="tab-content">
-                        {TABS.map((tab, i) => (
-                            <div
-                                key={tab.id}
-                                className={`tab-pane${i === 0 ? " active show" : ""}`}
-                                id={tab.id}
-                                role="tabpanel"
-                            >
-                                <div className="row">
-                                    {tab.props.map((p, j) => (
-                                        <div key={j} className="col-xl-4 col-lg-6 col-md-6">
-                                            <PropCard p={p} />
-                                        </div>
-                                    ))}
-                                </div>
-
-                                {/* View all CTA */}
-                                <div className="text-center" style={{ marginTop: "8px" }}>
-                                    <a href="#" className="tf-btn btn-view primary size-1 hover-btn-view">
-                                        View All Verified Properties <span className="icon icon-arrow-right2"></span>
-                                    </a>
-                                </div>
-                            </div>
-                        ))}
+                        <p style={{
+                            fontSize: "16px", color: C.mid, lineHeight: "1.7",
+                            maxWidth: "560px", margin: "12px auto 0",
+                        }}>
+                            Every listing below is backed by verified maintenance records, credentialed provider work, and a transparent Property Health Score.
+                        </p>
                     </div>
-                </div>
 
-            </div>
-        </section>
-    </>
-);
+                    <div className="flat-tab-recommended flat-animate-tab vps-tab-nav wow fadeInUp" data-wow-delay=".2s">
+                        <ul className="nav-tab-recommended justify-content-md-center" role="tablist">
+                            {TABS.map((tab, i) => (
+                                <li key={tab.id} className="nav-tab-item" role="presentation">
+                                    <button
+                                        style={{
+                                            backgroundColor: "#fff",
+                                            border: "none",
+                                            cursor: "pointer",
+                                        }}
+                                        className={`nav-link-item${i === activeTab ? " active" : ""}`}
+                                        onClick={() => setActiveTab(i)}
+                                        type="button"
+                                    >
+                                        {tab.label}
+                                    </button>
+                                </li>
+                            ))}
+                        </ul>
+
+                        <div className="tab-content">
+                            {TABS.map((tab, i) => (
+                                <div
+                                    key={tab.id}
+                                    className={`tab-pane${i === activeTab ? " active show" : ""}`}
+                                    id={tab.id}
+                                    role="tabpanel"
+                                >
+                                    <div className="row">
+                                        {tab.props.map((p) => (
+                                            <div key={p.id} className="col-xl-4 col-lg-6 col-md-6">
+                                                <PropCard p={p} />
+                                            </div>
+                                        ))}
+                                    </div>
+
+                                    <div className="text-center" style={{ marginTop: "8px" }}>
+                                        <Link to="/all-properties" className="tf-btn btn-view primary size-1 hover-btn-view">
+                                            View All Verified Properties <span className="icon icon-arrow-right2"></span>
+                                        </Link>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+        </>
+    );
+};
 
 export default VerifiedPropertiesSection;

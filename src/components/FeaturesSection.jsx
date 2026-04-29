@@ -3,79 +3,31 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { PROPERTIES } from "../data/properties";
 
+const row1 = PROPERTIES.slice(0, 7);
+const row2 = [...PROPERTIES.slice(7), ...PROPERTIES.slice(0, 2)];
 
+const swiperData = PROPERTIES.slice(0, 4).map((p) => ({
+    id: p.id,
+    image: p.img,
+    address: p.address,
+    score: p.score,
+    reportItems: [
+        { label: "Year Built", value: String(p.yearBuilt) },
+        { label: "Area", value: `${p.sqft.toLocaleString()} sqft` },
+        { label: "Price", value: p.price },
+        { label: "Bedrooms", value: String(p.beds) },
+        { label: "Bathrooms", value: String(p.baths) },
+        { label: "Type", value: p.type },
+        { label: "Records", value: `${p.records} verified` },
+        { label: "History", value: `${p.yearsOfData} yrs` },
+    ],
+    propertyHealthScore: p.score,
+    healthDescription:
+        p.score >= 90 ? "Excellent" : p.score >= 80 ? "Good" : "Fair",
+}));
 
-const data = [
-    {
-        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
-        address: "142 Maple Avenue, Austin, TX",
-        score: 86,
-        reportItems: [
-            { label: "Year Built", value: "2015" },
-            { label: "Lot Size", value: "2,400 sqft" },
-            { label: "Value", value: "$450,000" },
-            { label: "Condition", value: "Good" },
-            { label: "Bedrooms", value: "3" },
-            { label: "Bathrooms", value: "2" },
-            { label: "Parking", value: "2-car garage" },
-            { label: "Neighborhood", value: "Suburban, quiet area" },
-        ],
-        propertyHealthScore: 86,
-        healthDescription: "Good - Minor Updates Needed"
-    },
-    {
-        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
-        address: "55 Sunset Blvd, Phoenix, AZ",
-        score: 92,
-        reportItems: [
-            { label: "Year Built", value: "2018" },
-            { label: "Lot Size", value: "3,000 sqft" },
-            { label: "Value", value: "$520,000" },
-            { label: "Condition", value: "Excellent" },
-            { label: "Bedrooms", value: "4" },
-            { label: "Bathrooms", value: "3" },
-            { label: "Parking", value: "3-car garage" },
-            { label: "Neighborhood", value: "Urban, near parks and shopping" },
-        ],
-        propertyHealthScore: 92,
-        healthDescription: "Excellent - No Improvements Needed"
-    },
-    {
-        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
-        address: "420 Oak Street, San Francisco, CA",
-        score: 80,
-        reportItems: [
-            { label: "Year Built", value: "2000" },
-            { label: "Lot Size", value: "1,800 sqft" },
-            { label: "Value", value: "$750,000" },
-            { label: "Condition", value: "Fair" },
-            { label: "Bedrooms", value: "2" },
-            { label: "Bathrooms", value: "1" },
-            { label: "Parking", value: "Street parking" },
-            { label: "Neighborhood", value: "Central, high-traffic area" },
-        ],
-        propertyHealthScore: 85,
-        healthDescription: "Fair - Needs Renovation"
-    },
-    {
-        image: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp",
-        address: "101 Park Avenue, New York, NY",
-        score: 95,
-        reportItems: [
-            { label: "Year Built", value: "2020" },
-            { label: "Lot Size", value: "2,100 sqft" },
-            { label: "Value", value: "$1,200,000" },
-            { label: "Condition", value: "Brand New" },
-            { label: "Bedrooms", value: "3" },
-            { label: "Bathrooms", value: "3" },
-            { label: "Parking", value: "Private parking garage" },
-            { label: "Neighborhood", value: "Luxury, prime location" },
-        ],
-        propertyHealthScore: 95,
-        healthDescription: "Excellent - Brand New Construction"
-    }
-];
 // Arrow Style (clean + overlay)
 const arrowStyle = (position) => ({
     position: "absolute",
@@ -125,35 +77,18 @@ const features = [
     { icon: "🔓", tag: "Pay Per Report", title: "On-Demand Report Unlock", desc: "Buyers and agents pay a one-time fee to unlock the full verified report for any property — complete history, no subscription." },
 ];
 
-// Two rows of listings, scrolling in opposite directions
-const row1 = [
-    { img: "/images/features/142-Maple-Ave,-Austin-TX.jpg", address: "142 Maple Ave, Austin TX", score: 86, records: 12, price: "$485,000", type: "House", tag: "HVAC · Roofing · Electrical" },
-    { img: "/images/features/88-Oak-Street,-Denver-CO.jfif", address: "88 Oak Street, Denver CO", score: 92, records: 18, price: "$372,000", type: "Villa", tag: "Plumbing · Foundation" },
-    { img: "/images/features/221-Pine-Rd,-Seattle-WA.webp", address: "221 Pine Rd, Seattle WA", score: 74, records: 8, price: "$621,000", type: "Condo", tag: "HVAC · Pest Control" },
-    { img: "/images/features/9-Harbor-Blvd,-Miami-F.webp", address: "9 Harbor Blvd, Miami FL", score: 88, records: 15, price: "$890,000", type: "House", tag: "Roofing · Electrical" },
-    { img: "/images/features/33-Elm-Court,-Chicago-IL.jpg", address: "33 Elm Court, Chicago IL", score: 79, records: 10, price: "$310,000", type: "Studio", tag: "Plumbing · HVAC" },
-    { img: "/images/features/500-Lakeview-Dr,-Portland-OR.png", address: "500 Lakeview Dr, Portland OR", score: 95, records: 22, price: "$540,000", type: "House", tag: "Full History" },
-    { img: "/images/features/14-Birch-Lane,-Nashville-TN.jpeg", address: "14 Birch Lane, Nashville TN", score: 83, records: 14, price: "$425,000", type: "House", tag: "HVAC · Roofing" },
-];
-const row2 = [
-    { img: "/images/features/77-Sunset-Blvd,-Phoenix-AZ.webp", address: "77 Sunset Blvd, Phoenix AZ", score: 90, records: 17, price: "$398,000", type: "Villa", tag: "Electrical · Foundation" },
-    { img: "/images/features/3-Willow-Way,-Boston-MA.jpg", address: "3 Willow Way, Boston MA", score: 68, records: 6, price: "$710,000", type: "Condo", tag: "Pest Control · HVAC" },
-    { img: "/images/features/19-Cedar-Ave,-San-Diego-CA.jpg", address: "19 Cedar Ave, San Diego CA", score: 94, records: 20, price: "$950,000", type: "House", tag: "Full History" },
-    { img: "/images/features/60-Redwood-St,-Las-Vegas-NV.jpeg", address: "60 Redwood St, Las Vegas NV", score: 77, records: 9, price: "$285,000", type: "Studio", tag: "HVAC · Plumbing" },
-    { img: "/images/features/28-Magnolia-Dr,-Atlanta-G.jpg", address: "28 Magnolia Dr, Atlanta GA", score: 85, records: 13, price: "$460,000", type: "House", tag: "Roofing · Electrical" },
-    { img: "/images/features/101-Spruce-Ln,-Minneapolis-MN.jpg", address: "101 Spruce Ln, Minneapolis MN", score: 81, records: 11, price: "$335,000", type: "House", tag: "Foundation · HVAC" },
-    { img: "/images/features/57-Aspen-Ct,-Salt-Lake-City-UT.png", address: "57 Aspen Ct, Salt Lake City UT", score: 89, records: 16, price: "$512,000", type: "Villa", tag: "Plumbing · Roofing" },
-];
-
 const scoreColor = (s) => s >= 90 ? "#16A34A" : s >= 75 ? "#1563df" : "#D97706";
 
 const ListingCard = ({ p }) => (
-    <div style={{
-        width: "260px", flexShrink: 0, borderRadius: "16px",
-        overflow: "hidden", border: `1px solid ${C.border}`,
-        background: C.white, boxShadow: "0 2px 14px rgba(21,99,223,0.07)",
-        cursor: "pointer", transition: "transform 0.22s, box-shadow 0.22s",
-    }}
+    <Link
+        to={`/property-deatils/${p.id}`}
+        style={{
+            width: "260px", flexShrink: 0, borderRadius: "16px",
+            overflow: "hidden", border: `1px solid ${C.border}`,
+            background: C.white, boxShadow: "0 2px 14px rgba(21,99,223,0.07)",
+            cursor: "pointer", transition: "transform 0.22s, box-shadow 0.22s",
+            display: "block", textDecoration: "none", color: "inherit",
+        }}
         onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.boxShadow = "0 12px 32px rgba(21,99,223,0.16)"; }}
         onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "0 2px 14px rgba(21,99,223,0.07)"; }}
     >
@@ -221,31 +156,18 @@ const ListingCard = ({ p }) => (
                     <div style={{ fontSize: "10px", color: C.muted }}>Records</div>
                     <div style={{ fontSize: "13px", fontWeight: "700", color: C.dark }}>{p.records} verified</div>
                 </div>
-                <button style={{
+                <div style={{
                     padding: "6px 14px", background: C.primarySoft,
                     border: `1px solid ${C.primaryBorder}`,
                     borderRadius: "8px", fontSize: "12px",
-                    fontWeight: "700", color: C.primary, cursor: "pointer",
-                    transition: "all 0.15s",
-                }}
-                    onMouseEnter={(e) => { e.target.style.background = C.primary; e.target.style.color = "#fff"; }}
-                    onMouseLeave={(e) => { e.target.style.background = C.primarySoft; e.target.style.color = C.primary; }}
-                >
-                    Unlock $30
-                </button>
+                    fontWeight: "700", color: C.primary,
+                }}>
+                    View Report →
+                </div>
             </div>
         </div>
-    </div>
+    </Link>
 );
-
-const reportItems = [
-    { label: "Service Records", value: "12 verified" },
-    { label: "Last Inspection", value: "Mar 2024" },
-    { label: "Property Health Score", value: "86 / 100" },
-    { label: "Years of Data", value: "7 years" },
-    { label: "Active Providers", value: "4 companies" },
-    { label: "Report Access", value: "$30 one-time" },
-];
 
 const FeaturesSection = () => {
     return (
@@ -417,7 +339,7 @@ const FeaturesSection = () => {
                         Verified Properties — Browse & Unlock Reports
                     </h3>
                     <p style={{ fontSize: "15px", color: C.mid, marginTop: "10px", lineHeight: "1.6" }}>
-                        Every listing has a verified service history. Pay once to unlock the full report.
+                        Every listing has a verified service history. Click any card to view the full report.
                     </p>
                 </div>
 
@@ -472,35 +394,21 @@ const FeaturesSection = () => {
                 </div>
             </div>
 
-            {/* ── Report Value Highlight ── */}
-            <div className="container" style={{ position: "relative", zIndex: 1, padding: "72px 12px 80px", }}>
+            {/* ── Report Value Highlight (Swiper) ── */}
+            <div className="container" style={{ position: "relative", zIndex: 1, padding: "72px 12px 80px" }}>
                 <div style={{ position: "relative" }}>
-                    {/* Left and Right Navigation Arrows */}
-                    <button
-                        className="prev-btn"
-                        style={arrowStyle("left")}
-                    >
-                        ←
-                    </button>
-                    <button
-                        className="next-btn"
-                        style={arrowStyle("right")}
-                    >
-                        →
-                    </button>
+                    <button className="prev-btn" style={arrowStyle("left")}>←</button>
+                    <button className="next-btn" style={arrowStyle("right")}>→</button>
 
                     <Swiper
                         modules={[Navigation]}
-                        navigation={{
-                            nextEl: ".next-btn",
-                            prevEl: ".prev-btn"
-                        }}
+                        navigation={{ nextEl: ".next-btn", prevEl: ".prev-btn" }}
                         spaceBetween={20}
                         slidesPerView={1}
                         loop
                     >
-                        {data.map((item, index) => (
-                            <SwiperSlide key={index}>
+                        {swiperData.map((item) => (
+                            <SwiperSlide key={item.id}>
                                 <div style={{
                                     borderRadius: "24px",
                                     overflow: "hidden",
@@ -513,7 +421,7 @@ const FeaturesSection = () => {
                                     <div>
                                         <img
                                             src={item.image}
-                                            alt=""
+                                            alt={item.address}
                                             style={{ width: "100%", height: "100%", objectFit: "fill" }}
                                         />
                                     </div>
@@ -524,76 +432,54 @@ const FeaturesSection = () => {
                                         padding: "36px 36px 32px",
                                         display: "flex",
                                         flexDirection: "column",
-                                        justifyContent: "center"
+                                        justifyContent: "center",
                                     }}>
-
                                         {/* Header */}
                                         <div style={{
                                             display: "flex",
                                             alignItems: "center",
                                             justifyContent: "space-between",
-                                            marginBottom: "20px"
+                                            marginBottom: "20px",
                                         }}>
                                             <div>
                                                 <div style={{
-                                                    fontSize: "11px",
-                                                    color: C.muted,
-                                                    textTransform: "uppercase",
-                                                    letterSpacing: "0.1em",
-                                                    marginBottom: "4px"
+                                                    fontSize: "11px", color: C.muted,
+                                                    textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: "4px",
                                                 }}>
                                                     Property Intelligence Report
                                                 </div>
-
-                                                <div style={{
-                                                    fontSize: "15px",
-                                                    fontWeight: "700",
-                                                    color: C.dark
-                                                }}>
+                                                <div style={{ fontSize: "15px", fontWeight: "700", color: C.dark }}>
                                                     {item.address}
                                                 </div>
                                             </div>
-
                                             <div style={{
-                                                background: C.primaryLight,
-                                                border: `1px solid ${C.primaryBorder}`,
-                                                borderRadius: "8px",
-                                                padding: "5px 12px",
-                                                fontSize: "12px",
-                                                fontWeight: "700",
-                                                color: C.primary
+                                                background: C.primaryLight, border: `1px solid ${C.primaryBorder}`,
+                                                borderRadius: "8px", padding: "5px 12px",
+                                                fontSize: "12px", fontWeight: "700", color: C.primary,
                                             }}>
                                                 ✓ VERIFIED
                                             </div>
                                         </div>
 
-                                        {/* GRID ITEMS */}
+                                        {/* Grid Items */}
                                         <div style={{
-                                            display: "grid",
-                                            gridTemplateColumns: "1fr 1fr",
-                                            gap: "8px",
-                                            marginBottom: "20px"
+                                            display: "grid", gridTemplateColumns: "1fr 1fr",
+                                            gap: "8px", marginBottom: "20px",
                                         }}>
                                             {item.reportItems.map((rep, i) => (
                                                 <div key={i} style={{
-                                                    padding: "12px 14px",
-                                                    borderRadius: "10px",
-                                                    background: C.bg,
-                                                    border: `1px solid ${C.border}`
+                                                    padding: "12px 14px", borderRadius: "10px",
+                                                    background: C.bg, border: `1px solid ${C.border}`,
                                                 }}>
                                                     <div style={{
-                                                        fontSize: "11px",
-                                                        color: C.muted,
-                                                        textTransform: "uppercase",
-                                                        marginBottom: "4px"
+                                                        fontSize: "11px", color: C.muted,
+                                                        textTransform: "uppercase", marginBottom: "4px",
                                                     }}>
                                                         {rep.label}
                                                     </div>
-
                                                     <div style={{
-                                                        fontSize: "15px",
-                                                        fontWeight: "800",
-                                                        color: i === 2 ? C.primary : C.dark
+                                                        fontSize: "15px", fontWeight: "800",
+                                                        color: i === 2 ? C.primary : C.dark,
                                                     }}>
                                                         {rep.value}
                                                     </div>
@@ -601,55 +487,53 @@ const FeaturesSection = () => {
                                             ))}
                                         </div>
 
-                                        {/* SCORE */}
+                                        {/* Score bar */}
                                         <div style={{
-                                            background: C.bg,
-                                            borderRadius: "12px",
-                                            border: `1px solid ${C.border}`,
-                                            padding: "14px 16px"
+                                            background: C.bg, borderRadius: "12px",
+                                            border: `1px solid ${C.border}`, padding: "14px 16px",
+                                            marginBottom: "16px",
                                         }}>
-                                            <div style={{
-                                                display: "flex",
-                                                justifyContent: "space-between",
-                                                marginBottom: "8px"
-                                            }}>
-                                                <span style={{ fontSize: "12px", fontWeight: "600" }}>
-                                                    Property Health Score
-                                                </span>
-
-                                                <span style={{
-                                                    fontSize: "14px",
-                                                    fontWeight: "800",
-                                                    color: C.primary
-                                                }}>
+                                            <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "8px" }}>
+                                                <span style={{ fontSize: "12px", fontWeight: "600" }}>Property Health Score</span>
+                                                <span style={{ fontSize: "14px", fontWeight: "800", color: C.primary }}>
                                                     {item.propertyHealthScore} / 100
                                                 </span>
                                             </div>
-
-                                            <div style={{
-                                                height: "8px",
-                                                borderRadius: "100px",
-                                                background: C.border,
-                                                overflow: "hidden"
-                                            }}>
+                                            <div style={{ height: "8px", borderRadius: "100px", background: C.border, overflow: "hidden" }}>
                                                 <div style={{
-                                                    height: "100%",
-                                                    width: `${item.propertyHealthScore}%`,
-                                                    background: `linear-gradient(90deg, ${C.primary}, #0099CC)`
+                                                    height: "100%", width: `${item.propertyHealthScore}%`,
+                                                    background: `linear-gradient(90deg, ${C.primary}, #0099CC)`,
                                                 }} />
                                             </div>
                                         </div>
 
+                                        {/* CTA */}
+                                        <Link
+                                            to={`/property-deatils/${item.id}`}
+                                            style={{
+                                                display: "inline-flex",
+                                                alignItems: "center",
+                                                justifyContent: "center",
+                                                padding: "12px 20px",
+                                                background: C.primary,
+                                                color: "#fff",
+                                                border: "none",
+                                                borderRadius: "10px",
+                                                fontSize: "14px",
+                                                fontWeight: "700",
+                                                textDecoration: "none",
+                                                boxShadow: "0 4px 16px rgba(21,99,223,0.3)",
+                                            }}
+                                        >
+                                            View Full Report →
+                                        </Link>
                                     </div>
                                 </div>
                             </SwiperSlide>
                         ))}
                     </Swiper>
                 </div>
-
             </div>
-
-
 
             <style>{`
                 @keyframes scrollLeft {
