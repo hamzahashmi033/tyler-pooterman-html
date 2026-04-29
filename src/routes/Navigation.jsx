@@ -15,6 +15,7 @@ import AllProperties from "../pages/AllProperties";
 import PropertyDetails from "../pages/PropertyDetails";
 import ProfileManagement from "../pages/Dashboard/pages/ProfileManagement";
 import ReportManagement from "../pages/Dashboard/pages/ReportManagement";
+import AddReport from "../pages/Dashboard/pages/AddReport";
 import Subscription from "../pages/Dashboard/pages/Subscription";
 import Message from "../pages/Dashboard/pages/Message";
 import AddProperty from "../pages/Dashboard/pages/AddProperty";
@@ -41,6 +42,7 @@ const Navigation = () => {
                 <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/dashboard/profile-management" element={<ProfileManagement />} />
                 <Route path="/dashboard/report-management" element={<ReportManagement />} />
+                <Route path="/dashboard/report-management/add-report" element={<AddReport />} />
                 <Route path="/dashboard/property-management" element={<PropertyManagement />} />
                 <Route path="/dashboard/subscription" element={<Subscription />} />
                 <Route path="/dashboard/message" element={<Message />} />

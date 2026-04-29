@@ -1,9 +1,29 @@
 import { Link, useLocation } from 'react-router-dom';
+import { Modal, message } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { IoLogOutOutline } from 'react-icons/io5';
 
 const DashboardSidebar = () => {
     const { pathname } = useLocation();
     const userData = JSON.parse(localStorage.getItem('currentUser'));
     const isActive = (route) => pathname === route;
+    const handleLogout = () => {
+        localStorage.clear();
+        message.success('Logged out successfully!');
+        window.location.href = '/';
+    };
+
+    const showLogoutConfirm = () => {
+        Modal.confirm({
+            title: 'Are you sure you want to logout?',
+            icon: <ExclamationCircleOutlined />,
+            content: 'This will clear all your local data (localStorage). This action cannot be undone!',
+            okText: 'Yes, Logout',
+            okType: 'danger',
+            cancelText: 'Cancel',
+            onOk: handleLogout,
+        });
+    };
 
     return (
         <div className="sidebar-menu-dashboard">
@@ -27,7 +47,7 @@ const DashboardSidebar = () => {
                         </svg>
                     </div>
                     <div className="content">
-                        <div className="caption-2 text">{userData?.role }</div>
+                        <div className="caption-2 text">{userData?.role}</div>
                         <div className="text-white fw-6">{userData?.email}</div>
                     </div>
                 </div>
@@ -48,18 +68,8 @@ const DashboardSidebar = () => {
                             Dashboards
                         </Link>
                     </li>
-                    <li className={`nav-menu-item ${isActive('/dashboard/profile-management') ? 'active' : ''}`}>
-                        <Link className="nav-menu-link" to="/dashboard/profile-management">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g opacity="0.2">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M10.987 14.0684C7.44168 14.0684 4.41406 14.6044 4.41406 16.7511C4.41406 18.8979 7.42247 19.4531 10.987 19.4531C14.5323 19.4531 17.5591 18.9162 17.5591 16.7703C17.5591 14.6245 14.5515 14.0684 10.987 14.0684Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M10.9866 11.0056C13.3132 11.0056 15.1989 9.11897 15.1989 6.79238C15.1989 4.46579 13.3132 2.58008 10.9866 2.58008C8.66005 2.58008 6.77346 4.46579 6.77346 6.79238C6.7656 9.11111 8.6391 10.9977 10.957 11.0056H10.9866Z" stroke="#F1FAEE" strokeWidth="1.42857" strokeLinecap="round" strokeLinejoin="round" />
-                                </g>
-                            </svg>
-                            Profile Management
-                        </Link>
-                    </li>
-                    <li className={`nav-menu-item ${isActive('/dashboard/property-management') ? 'active' : ''}`}>
+
+                    {/* <li className={`nav-menu-item ${isActive('/dashboard/property-management') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/property-management">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -70,7 +80,7 @@ const DashboardSidebar = () => {
                             </svg>
                             Property Management
                         </Link>
-                    </li>
+                    </li> */}
                     <li className={`nav-menu-item ${isActive('/dashboard/report-management') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/report-management">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +103,18 @@ const DashboardSidebar = () => {
                             Subscription
                         </Link>
                     </li>
-                    <li className={`nav-menu-item ${isActive('/dashboard/message') ? 'active' : ''}`}>
+                    <li className={`nav-menu-item ${isActive('/dashboard/profile-management') ? 'active' : ''}`}>
+                        <Link className="nav-menu-link" to="/dashboard/profile-management">
+                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <g opacity="0.2">
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M10.987 14.0684C7.44168 14.0684 4.41406 14.6044 4.41406 16.7511C4.41406 18.8979 7.42247 19.4531 10.987 19.4531C14.5323 19.4531 17.5591 18.9162 17.5591 16.7703C17.5591 14.6245 14.5515 14.0684 10.987 14.0684Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    <path fillRule="evenodd" clipRule="evenodd" d="M10.9866 11.0056C13.3132 11.0056 15.1989 9.11897 15.1989 6.79238C15.1989 4.46579 13.3132 2.58008 10.9866 2.58008C8.66005 2.58008 6.77346 4.46579 6.77346 6.79238C6.7656 9.11111 8.6391 10.9977 10.957 11.0056H10.9866Z" stroke="#F1FAEE" strokeWidth="1.42857" strokeLinecap="round" strokeLinejoin="round" />
+                                </g>
+                            </svg>
+                            Profile Management
+                        </Link>
+                    </li>
+                    {/*  <li className={`nav-menu-item ${isActive('/dashboard/message') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/message">
                             <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -106,7 +127,7 @@ const DashboardSidebar = () => {
                             Message
                         </Link>
                     </li>
-                    {/* <li className={`nav-menu-item ${isActive('/dashboard/add-property') ? 'active' : ''}`}>
+                   <li className={`nav-menu-item ${isActive('/dashboard/add-property') ? 'active' : ''}`}>
                         <Link className="nav-menu-link" to="/dashboard/add-property">
                             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <g opacity="0.2">
@@ -116,6 +137,17 @@ const DashboardSidebar = () => {
                             Add Property
                         </Link>
                     </li> */}
+                    <li className="nav-menu-item">
+                        <button
+                            type="button"
+                            className="nav-menu-link"
+                            onClick={showLogoutConfirm}
+                            style={{ width: '100%', background: 'transparent', border: 'none', textAlign: 'left' }}
+                        >
+                            <IoLogOutOutline size={20} />
+                            Logout
+                        </button>
+                    </li>
 
                 </ul>
             </div>
