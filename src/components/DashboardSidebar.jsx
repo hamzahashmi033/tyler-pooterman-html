@@ -27,8 +27,8 @@ const DashboardSidebar = () => {
                         </svg>
                     </div>
                     <div className="content">
-                        <div className="caption-2 text">{userData.role}</div>
-                        <div className="text-white fw-6">{userData.email}</div>
+                        <div className="caption-2 text">{userData?.role }</div>
+                        <div className="text-white fw-6">{userData?.email}</div>
                     </div>
                 </div>
             </div>
