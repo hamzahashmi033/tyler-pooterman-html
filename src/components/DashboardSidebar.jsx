@@ -2,6 +2,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Modal, message } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { IoLogOutOutline } from 'react-icons/io5';
+import { Tooltip } from "antd";
 
 const DashboardSidebar = () => {
     const { pathname } = useLocation();
@@ -49,7 +50,15 @@ const DashboardSidebar = () => {
                     </div>
                     <div className="content">
                         <div className="caption-2 text">{userData?.role}</div>
-                        <div className="text-white fw-6">{userData?.email}</div>
+                        <div className="text-white fw-6">
+                            {userData?.email && (
+                                <Tooltip title={userData.email}>
+                                    <span>
+                                        {userData.email.split("@")[0] + "@..."}
+                                    </span>
+                                </Tooltip>
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,7 +75,7 @@ const DashboardSidebar = () => {
                                     <path fillRule="evenodd" clipRule="evenodd" d="M15.2939 1.83398H6.70346C3.70902 1.83398 1.83203 3.95339 1.83203 6.95371V15.0476C1.83203 18.0479 3.70029 20.1673 6.70346 20.1673H15.2939C18.2971 20.1673 20.1654 18.0479 20.1654 15.0476V6.95371C20.1654 3.95339 18.2971 1.83398 15.2939 1.83398Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                 </g>
                             </svg>
-                            Dashboards
+                            Dashboard
                         </Link>
                     </li>
 
