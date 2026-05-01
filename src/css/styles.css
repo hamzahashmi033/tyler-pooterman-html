@@ -3342,6 +3342,10 @@ label {
   stroke: #ffffff;
 }
 
+.auth-signin-btn:hover svg path {
+  stroke: #0f4fbe !important;
+}
+
 .btn-line:hover .icon {
   color: #ffffff;
 }
@@ -9773,7 +9777,7 @@ label {
 
 .sidebar-menu-dashboard .logo-box {
   display: block;
-  padding: 34px 30px;
+  padding: 19px 24px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
@@ -13293,3 +13297,8 @@ tr {
 }
 
 /*# sourceMappingURL=styles.css.map */
+
+
+.homeowner-form label{
+  margin-bottom: 0px !important;
+}
