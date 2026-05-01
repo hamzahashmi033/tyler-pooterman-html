@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const C = {
     bg: "#f3f7fd",
     white: "#ffffff",
@@ -18,6 +20,7 @@ const PLANS = [
     {
         icon: "🏠",
         name: "Homeowner",
+        role: "homeowners",
         price: "Free",
         period: "forever",
         tagline: "Claim, manage, and protect your property history at no cost.",
@@ -41,6 +44,7 @@ const PLANS = [
     {
         icon: "📋",
         name: "Report Unlock",
+        role: "user",
         price: "$30",
         period: "per report",
         tagline: "Get the full verified history of any property — before you commit.",
@@ -64,10 +68,11 @@ const PLANS = [
     },
     {
         icon: "🛠️",
-        name: "Service Provider",
-        price: "$49",
+        name: "Service Company (1)",
+        role: "service-professionals",
+        price: "$165",
         period: "/ month",
-        tagline: "Build your verified digital reputation and win clients through trust.",
+        tagline: "Unlimited entries and premium tools for active service businesses.",
         color: C.primary,
         colorLight: C.primaryLight,
         colorBorder: C.primaryBorder,
@@ -76,16 +81,71 @@ const PLANS = [
         ctaStyle: "solid-blue",
         badge: "14-day free trial",
         features: [
-            { text: "Full provider SaaS dashboard", included: true },
-            { text: "Upload unlimited service records", included: true },
-            { text: "Attach records to property profiles", included: true },
-            { text: "Verified work portfolio page", included: true },
-            { text: "Client review & rating system", included: true },
-            { text: "Record analytics & job history", included: true },
-            { text: "Priority badge on listings", included: true },
-            { text: "API access for integrations", included: false },
+            { text: "Unlimited entries for serviced properties", included: true },
+            { text: "Attach paperwork and bids in report ledger", included: true },
+            { text: "Import paperwork to fillable forms", included: true },
+            { text: "Follow-up reminders and quality control", included: true },
+            { text: "Up to 8 report views each month", included: true },
+            { text: "Additional report view at $60", included: true },
+            { text: "Priority profile visibility", included: true },
+            { text: "API integrations", included: false },
         ],
     },
+    {
+        icon: "🧰",
+        name: "Service Company (2)",
+        role: "service-professionals",
+        price: "$50",
+        period: "signup + $10/entry",
+        tagline: "Flexible pay-as-you-go plan for smaller teams and occasional usage.",
+        color: C.primary,
+        colorLight: C.primaryLight,
+        colorBorder: C.primaryBorder,
+        featured: false,
+        cta: "Choose Flexible Plan",
+        ctaStyle: "outline",
+        features: [
+            { text: "Per entry includes date + brief description", included: true },
+            { text: "No paperwork attachment support", included: false },
+            { text: "No follow-up reminders", included: false },
+            { text: "No paperwork import/digitization", included: false },
+            { text: "Reports billed at full price", included: true },
+            { text: "Simple onboarding for startups", included: true },
+            { text: "Usage based payment model", included: true },
+            { text: "Dedicated account manager", included: false },
+        ],
+    },
+    {
+        icon: "🏢",
+        name: "Realtor Pro",
+        role: "realtor",
+        price: "$99",
+        period: "/ month",
+        tagline: "Unlock verified records faster and close deals with greater confidence.",
+        color: C.primary,
+        colorLight: C.primaryLight,
+        colorBorder: C.primaryBorder,
+        featured: false,
+        cta: "Start Realtor Plan",
+        ctaStyle: "solid-blue",
+        features: [
+            { text: "Priority access to verified property history", included: true },
+            { text: "Faster report unlock workflow", included: true },
+            { text: "Client-ready downloadable report summaries", included: true },
+            { text: "Saved properties and comparison lists", included: true },
+            { text: "Lead-ready property insights", included: true },
+            { text: "Agency team collaboration", included: false },
+            { text: "White-label exports", included: false },
+            { text: "API integrations", included: false },
+        ],
+    },
+];
+
+const TABS = [
+    { id: "homeowners", label: "House Owners" },
+    { id: "service-professionals", label: "Service Professionals" },
+    { id: "realtor", label: "Realtor" },
+    { id: "user", label: "User" },
 ];
 
 const Check = ({ ok, color }) => (
@@ -100,8 +160,12 @@ const Check = ({ ok, color }) => (
     </span>
 );
 
-const PricingSection = () => (
-    <>
+const PricingSection = () => {
+    const [activeTab, setActiveTab] = useState("homeowners");
+    const visiblePlans = PLANS.filter((plan) => plan.role === activeTab);
+
+    return (
+        <>
         <style>{`
             .pricing-card {
                 border-radius: 24px;
@@ -166,6 +230,23 @@ const PricingSection = () => (
             .pricing-feature-list {
                 list-style: none; padding: 0; margin: 0;
                 display: flex; flex-direction: column; gap: 11px;
+            }
+            .pricing-tab-btn {
+                border: 1px solid ${C.primaryBorder};
+                background: #fff;
+                color: ${C.primary};
+                border-radius: 999px;
+                padding: 10px 18px;
+                font-size: 13px;
+                font-weight: 700;
+                cursor: pointer;
+                transition: all 0.2s ease;
+            }
+            .pricing-tab-btn.active {
+                background: linear-gradient(135deg, #1563df 0%, #0d4fc4 100%);
+                border-color: #1563df;
+                color: #fff;
+                box-shadow: 0 8px 20px rgba(21,99,223,0.28);
             }
             @media (max-width: 991px) {
                 .pricing-card { margin-bottom: 24px; }
@@ -233,7 +314,21 @@ const PricingSection = () => (
 
                 {/* ── Cards ── */}
                 <div data-stagger className="row g-4 align-items-center justify-content-center">
-                    {PLANS.map((plan, i) => (
+                    <div className="col-12" style={{ marginBottom: "10px" }}>
+                        <div style={{ display: "flex", justifyContent: "center", gap: "10px", flexWrap: "wrap" }}>
+                            {TABS.map((tab) => (
+                                <button
+                                    key={tab.id}
+                                    type="button"
+                                    className={`pricing-tab-btn ${activeTab === tab.id ? "active" : ""}`}
+                                    onClick={() => setActiveTab(tab.id)}
+                                >
+                                    {tab.label}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                    {visiblePlans.map((plan, i) => (
                         <div key={i} className="col-lg-4 col-md-6">
                             <div className={`pricing-card ${plan.featured ? "pricing-featured" : "pricing-light"}`}>
 
@@ -412,6 +507,7 @@ const PricingSection = () => (
             </div>
         </section>
     </>
-);
+    );
+};
 
 export default PricingSection;

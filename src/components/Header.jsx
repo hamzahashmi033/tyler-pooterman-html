@@ -63,6 +63,20 @@ const Header = () => {
             ),
         },
     ];
+    const authButtonBaseStyle = {
+        height: "46px",
+        borderRadius: "999px",
+        padding: "0 18px",
+        display: "inline-flex",
+        alignItems: "center",
+        gap: "8px",
+        fontFamily: "Manrope, sans-serif",
+        fontWeight: 700,
+        fontSize: "14px",
+        borderWidth: "1px",
+        borderStyle: "solid",
+        transition: "all 0.25s ease"
+    };
 
     return (
         <>
@@ -112,11 +126,20 @@ const Header = () => {
                                                     data-bs-toggle="modal"
                                                     data-bs-target="#modalLogin"
                                                 >
-                                                    <Button className="tf-btn btn-line btn-login">
-                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="#000" xmlns="http://www.w3.org/2000/svg">
-                                                            <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                    <Button
+                                                        className="tf-btn btn-line btn-login auth-signin-btn"
+                                                        style={{
+                                                            ...authButtonBaseStyle,
+                                                            color: "#0f4fbe",
+                                                            background: "#ffffff",
+                                                            borderColor: "rgba(21,99,223,0.28)",
+                                                            boxShadow: "0 8px 20px rgba(21,99,223,0.10)"
+                                                        }}
+                                                    >
+                                                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="#0f4fbe" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                         </svg>
-                                                        <span style={{ fontSize: "16px", fontFamily: "Manrope, sans-serif" }}>
+                                                        <span style={{ fontSize: "15px", fontFamily: "Manrope, sans-serif" }}>
                                                             Sign In
                                                         </span>
                                                     </Button>
@@ -125,12 +148,21 @@ const Header = () => {
                                             </div>
                                             <Dropdown menu={{ items }}>
 
-                                                <Button className="tf-btn btn-line btn-login">
-                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="#000" xmlns="http://www.w3.org/2000/svg">
-                                                        <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="black" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                                <Button
+                                                    className="tf-btn btn-line btn-login"
+                                                    style={{
+                                                        ...authButtonBaseStyle,
+                                                        color: "#ffffff",
+                                                        background: "linear-gradient(135deg,#1563df 0%,#0f4fbe 100%)",
+                                                        borderColor: "#0f4fbe",
+                                                        boxShadow: "0 12px 24px rgba(15,79,190,0.28)"
+                                                    }}
+                                                >
+                                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M13.1251 5C13.1251 5.8288 12.7959 6.62366 12.2099 7.20971C11.6238 7.79576 10.8289 8.125 10.0001 8.125C9.17134 8.125 8.37649 7.79576 7.79043 7.20971C7.20438 6.62366 6.87514 5.8288 6.87514 5C6.87514 4.1712 7.20438 3.37634 7.79043 2.79029C8.37649 2.20424 9.17134 1.875 10.0001 1.875C10.8289 1.875 11.6238 2.20424 12.2099 2.79029C12.7959 3.37634 13.1251 4.1712 13.1251 5ZM3.75098 16.765C3.77776 15.1253 4.44792 13.5618 5.61696 12.4117C6.78599 11.2616 8.36022 10.6171 10.0001 10.6171C11.6401 10.6171 13.2143 11.2616 14.3833 12.4117C15.5524 13.5618 16.2225 15.1253 16.2493 16.765C14.2888 17.664 12.1569 18.1279 10.0001 18.125C7.77014 18.125 5.65348 17.6383 3.75098 16.765Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                                                     </svg>
-                                                    <span style={{ fontSize: "16px", fontFamily: "Manrope, sans-serif" }}>
-                                                        Sign up
+                                                    <span style={{ fontSize: "15px", fontFamily: "Manrope, sans-serif" }}>
+                                                        Create Account
                                                     </span>
                                                 </Button>
 
