@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -7,38 +7,101 @@ import { Form, Input, Button, Select, Typography, Card, InputNumber } from "antd
 const { Title, Text } = Typography;
 const { Option } = Select;
 
+const HERO_IMAGES = [
+    "https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://images.unsplash.com/photo-1502005229762-cf1b2da7c5d6?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+];
+
 const HomeOwners = () => {
     const [form] = Form.useForm();
     const [agreed, setAgreed] = useState(false);
+    const [activeHeroImageIndex, setActiveHeroImageIndex] = useState(0);
 
     const onFinish = (values) => {
         console.log("HomeOwner Data:", values);
     };
 
+    useEffect(() => {
+        const heroInterval = setInterval(() => {
+            setActiveHeroImageIndex((prev) => (prev + 1) % HERO_IMAGES.length);
+        }, 5000);
+
+        return () => clearInterval(heroInterval);
+    }, []);
+
     return (
         <>
-            <Header />
-            <div className="container" style={{ marginTop: "50px", marginBottom: "50px" }}>
-                <div className="row">
-                    <div className="col-md-2"></div>
-                    <div className="col-md-8">
-                        <Card bordered={false} style={{ boxShadow: "0 4px 12px rgba(0,0,0,0.1)", backgroundColor: "#f3f7fd" }}>
-                            <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-                                <Title level={2} style={{ fontFamily: "Manrope, sans-serif" }}>Homeowner Sign Up</Title>
-                                <Text style={{ fontFamily: "Manrope, sans-serif", color: "#666", fontSize: "16px" }}>
-                                    List your property or get a professional valuation.
+            <section style={{ background: "#0b1628", minHeight: "100vh", padding: "24px 0" }}>
+                <div className="container">
+                    <div
+                        className="row g-0 shadow-sm overflow-hidden"
+                        style={{
+                            minHeight: "calc(100vh - 48px)",
+                            borderRadius: "30px",
+                            background: "#fff"
+                        }}
+                    >
+                        <div
+                            className="col-lg-6 d-none d-lg-flex"
+                            style={{
+                                position: "relative",
+                                alignItems: "flex-end",
+                                padding: "40px",
+                                overflow: "hidden"
+                            }}
+                        >
+                            {HERO_IMAGES.map((image, index) => (
+                                <div
+                                    key={image}
+                                    style={{
+                                        position: "absolute",
+                                        inset: 0,
+                                        backgroundImage: `linear-gradient(160deg, rgba(9, 27, 62, 0.24), rgba(9, 27, 62, 0.58)), url(${image})`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                        opacity: activeHeroImageIndex === index ? 1 : 0,
+                                        transition: "opacity 900ms ease-in-out"
+                                    }}
+                                />
+                            ))}
+                            <div style={{ position: "relative", zIndex: 2 }}>
+                                <Title level={1} style={{ color: "#fff", fontFamily: "Manrope, sans-serif", marginBottom: 10 }}>
+                                    Showcase Your Home With Confidence
+                                </Title>
+                                <Text style={{ color: "rgba(255,255,255,0.92)", fontSize: 15, lineHeight: 1.7, fontFamily: "Manrope, sans-serif" }}>
+                                    Create your homeowner profile to list your property, request valuation, and connect
+                                    with trusted professionals faster.
                                 </Text>
                             </div>
-
+                        </div>
+                        <div
+                            className="col-lg-6"
+                            style={{
+                                padding: "34px 30px",
+                                maxHeight: "calc(100vh - 48px)",
+                                overflowY: "auto",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                            }}
+                        >
                             <Form
                                 form={form}
                                 layout="vertical"
                                 onFinish={onFinish}
+                                className="homeowner-form"
+                                style={{ width: "100%", fontFamily: "Manrope, sans-serif" }}
                             >
+                                <div style={{ textAlign: "start", marginBottom: "30px" }}>
+                                    <Title level={2} style={{ fontFamily: "Manrope, sans-serif", marginBottom: "8px" }}>
+                                        Homeowner Sign Up
+                                    </Title>
+                                </div>
                                 {/* Personal Info Section */}
                                 <div className="row">
                                     <div className="col-md-6">
                                         <Form.Item
+                                            style={{ marginBottom: "15px" }}
                                             name="firstName"
                                             label="First Name"
                                             rules={[{ required: true, message: 'Required' }]}
@@ -48,6 +111,7 @@ const HomeOwners = () => {
                                     </div>
                                     <div className="col-md-6">
                                         <Form.Item
+                                            style={{ marginBottom: "15px" }}
                                             name="lastName"
                                             label="Last Name"
                                             rules={[{ required: true, message: 'Required' }]}
@@ -57,33 +121,44 @@ const HomeOwners = () => {
                                     </div>
                                 </div>
 
-                                <Form.Item
-                                    name="email"
-                                    label="Email Address"
-                                    rules={[{ type: 'email', required: true }]}
-                                >
-                                    <Input placeholder="jane.smith@email.com" size="large" />
-                                </Form.Item>
-
-                                <hr style={{ margin: '25px 0' }} />
-
-                                {/* Property Details Section */}
-                                <Form.Item
-                                    name="address"
-                                    label="Property Address"
-                                    rules={[{ required: true, message: 'Please enter your property address' }]}
-                                >
-                                    <Input placeholder="123 Maple Avenue, City, State" size="large" />
-                                </Form.Item>
 
                                 <div className="row">
                                     <div className="col-md-6">
                                         <Form.Item
+                                            style={{ marginBottom: "15px" }}
+                                            name="email"
+                                            label="Email Address"
+                                            rules={[{ type: 'email', required: true }]}
+                                        >
+                                            <Input placeholder="jane.smith@email.com" size="large" />
+                                        </Form.Item>
+                                    </div>
+                                    <div className="col-md-6">
+                                        {/* Property Details Section */}
+                                        <Form.Item
+                                            style={{ marginBottom: "15px" }}
+                                            name="address"
+                                            label="Property Address"
+                                            rules={[{ required: true, message: 'Please enter your property address' }]}
+                                        >
+                                            <Input placeholder="123 Maple Avenue, City, State" size="large" />
+                                        </Form.Item>
+                                    </div>
+                                </div>
+
+
+
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <Form.Item
+                                            style={{ marginBottom: "15px" }}
                                             name="propertyType"
                                             label="Property Type"
                                             rules={[{ required: true }]}
                                         >
-                                            <Select placeholder="Select type" size="large">
+                                            <Select placeholder="Select type" size="large"
+                                                style={{ height: '54px', borderRadius: '100px' }}
+                                            >
                                                 <Option value="single-family">Single Family Home</Option>
                                                 <Option value="condo">Condo / Apartment</Option>
                                                 <Option value="townhouse">Townhouse</Option>
@@ -93,48 +168,60 @@ const HomeOwners = () => {
                                     </div>
                                     <div className="col-md-6">
                                         <Form.Item
+                                            style={{ marginBottom: "15px" }}
                                             name="estimatedValue"
                                             label="Estimated Value (Optional)"
                                         >
                                             <InputNumber
                                                 formatter={value => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                                                 parser={value => value.replace(/\$\s?|(,*)/g, '')}
-                                                style={{ width: '100%' }}
+                                                style={{ height: '54px', borderRadius: '100px', width: '100%' }}
                                                 size="large"
                                                 placeholder="500,000"
                                             />
                                         </Form.Item>
                                     </div>
                                 </div>
+                                <div className="row">
+                                    <div className="col-md-6">
+                                        <Form.Item
+                                            style={{ marginBottom: "15px" }}
+                                            name="intent"
+                                            label="I am looking to..."
+                                            rules={[{ required: true }]}
+                                        >
+                                            <Select placeholder="Select your goal" size="large"
+                                                style={{ height: '54px', borderRadius: '100px' }}
+                                            >
+                                                <Option value="sell">Sell my home</Option>
+                                                <Option value="rent">Rent out my home</Option>
+                                                <Option value="valuation">Get a free valuation</Option>
+                                                <Option value="refinance">Explore refinancing</Option>
+                                            </Select>
+                                        </Form.Item>
+                                    </div>
+                                    <div className="col-md-6">
+                                        <Form.Item
+                                            style={{ marginBottom: "15px" }}
+                                            name="password"
+                                            label="Create Password"
+                                            rules={[{ required: true, min: 6 }]}
+                                        >
+                                            <Input.Password size="large"
+                                                style={{ height: '54px', borderRadius: '100px' }}
+                                            />
+                                        </Form.Item>
+                                    </div>
+                                </div>
 
-                                <Form.Item
-                                    name="intent"
-                                    label="I am looking to..."
-                                    rules={[{ required: true }]}
-                                >
-                                    <Select placeholder="Select your goal" size="large">
-                                        <Option value="sell">Sell my home</Option>
-                                        <Option value="rent">Rent out my home</Option>
-                                        <Option value="valuation">Get a free valuation</Option>
-                                        <Option value="refinance">Explore refinancing</Option>
-                                    </Select>
-                                </Form.Item>
-
-                                <Form.Item
-                                    name="password"
-                                    label="Create Password"
-                                    rules={[{ required: true, min: 6 }]}
-                                >
-                                    <Input.Password size="large" />
-                                </Form.Item>
 
                                 {/* Terms & Conditions */}
                                 <div style={{
                                     border: "1.5px solid #D8E6F7",
                                     borderRadius: "12px",
-                                    padding: "18px 20px",
+                                    padding: "12px 15px",
                                     background: agreed ? "rgba(21,99,223,0.04)" : "#fff8f8",
-                                    marginBottom: "20px",
+                                    marginBottom: "15px",
                                     transition: "background 0.2s, border-color 0.2s",
                                     borderColor: agreed ? "rgba(21,99,223,0.35)" : "#f0c0c0",
                                 }}>
@@ -152,8 +239,8 @@ const HomeOwners = () => {
                                                 cursor: "pointer",
                                             }}
                                         />
-                                        <span style={{ fontSize: "13px", color: "#4A5568", lineHeight: "1.65", fontFamily: "Manrope, sans-serif" }}>
-                                            <strong style={{ color: "#161E2D", display: "block", marginBottom: "6px", fontSize: "13px" }}>
+                                        <span style={{ fontSize: "12px", color: "#4A5568", lineHeight: "1.65", fontFamily: "Manrope, sans-serif" }}>
+                                            <strong style={{ color: "#161E2D", display: "block", marginBottom: "12px", fontSize: "13px" }}>
                                                 Required Checkbox (Must Be Checked)
                                             </strong>
                                             I agree to the{" "}
@@ -161,7 +248,7 @@ const HomeOwners = () => {
                                             {" "}and{" "}
                                             <Link to="/privacy-policy" target="_blank" style={{ color: "#1563df", fontWeight: "700" }}>Privacy Policy</Link>.
                                             {" "}I understand that:
-                                            <ul style={{ margin: "8px 0 0", paddingLeft: "18px", display: "flex", flexDirection: "column", gap: "4px" }}>
+                                            <ul style={{ margin: "8px 0 0", paddingLeft: "12px", display: "flex", flexDirection: "column", gap: "4px" }}>
                                                 <li>The platform does not verify or guarantee any submitted information</li>
                                                 <li>I am solely responsible for the accuracy and legality of my data</li>
                                                 <li>The platform holds no liability for pesticide use, environmental conditions, or property-related claims</li>
@@ -188,6 +275,8 @@ const HomeOwners = () => {
                                             backgroundColor: agreed ? '#1562df' : '#a0b4d6',
                                             borderColor: agreed ? '#1562df' : '#a0b4d6',
                                             fontFamily: "Manrope, sans-serif",
+                                            borderRadius: "100px",
+                                            height: "54px",
                                             cursor: agreed ? "pointer" : "not-allowed",
                                             transition: "background-color 0.25s, border-color 0.25s",
                                         }}
@@ -196,12 +285,10 @@ const HomeOwners = () => {
                                     </Button>
                                 </Form.Item>
                             </Form>
-                        </Card>
+                        </div>
                     </div>
-                    <div className="col-md-2"></div>
                 </div>
-            </div>
-            <Footer />
+            </section>
         </>
     );
 };

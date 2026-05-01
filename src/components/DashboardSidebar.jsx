@@ -7,6 +7,9 @@ import { Tooltip } from "antd";
 const DashboardSidebar = () => {
     const { pathname } = useLocation();
     const userData = JSON.parse(localStorage.getItem('currentUser'));
+    const userEmail = userData?.email || "";
+    const userRole = userData?.role || "Service Professional";
+    const initials = userEmail ? userEmail.slice(0, 2).toUpperCase() : "SP";
     const isActive = (route) => pathname === route;
     const isReportManagementActive = pathname.startsWith('/dashboard/report-management');
     const handleLogout = () => {
@@ -26,32 +29,100 @@ const DashboardSidebar = () => {
             onOk: handleLogout,
         });
     };
+    const getItemStyle = (active) => ({
+        marginBottom: "8px",
+        borderRadius: "12px",
+        overflow: "hidden",
+        background: active ? "linear-gradient(135deg, rgba(21,99,223,0.22), rgba(15,79,190,0.22))" : "transparent",
+        border: active ? "1px solid rgba(147,189,255,0.45)" : "1px solid transparent",
+        boxShadow: active ? "0 8px 20px rgba(6,40,106,0.24)" : "none",
+        transition: "all 0.25s ease"
+    });
+
+    const getLinkStyle = (active) => ({
+        color: active ? "#ffffff" : "rgba(255,255,255,0.86)",
+        fontWeight: 600,
+        borderRadius: "12px",
+        padding: "12px 14px",
+        display: "flex",
+        alignItems: "center",
+        gap: "10px",
+        minHeight: "48px",
+        justifyContent: "space-between"
+    });
+    const getIconBadgeStyle = (accent, active) => ({
+        width: "32px",
+        height: "32px",
+        minWidth: "32px",
+        borderRadius: "10px",
+        display: "inline-flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: active ? "rgba(255,255,255,0.18)" : `${accent}1F`,
+        border: `1px solid ${active ? "rgba(255,255,255,0.28)" : `${accent}66`}`,
+        boxShadow: active ? "0 6px 12px rgba(5, 19, 46, 0.22)" : "none"
+    });
 
     return (
-        <div className="sidebar-menu-dashboard">
-            <a href="/" className="logo-box">
+        <div
+            className="sidebar-menu-dashboard"
+            style={{
+                background: "linear-gradient(180deg, #0d47a8 0%, #0a3f95 45%, #073173 100%)",
+            }}
+        >
+            <Link to="/" className="logo-box" style={{ paddingBottom: "18px", textAlign: "center", borderBottom: "1px solid rgba(201,223,255,0.18)" }}>
                 <img src="/images/logo/logo-footer@2x.png" alt="" />
-            </a>
-            <div className="user-box">
-                <p className="fw-6">Profile</p>
-                <div className="user">
-                    <div className="icon-box">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <g clipPath="url(#clip0_13487_13661)">
-                                <path d="M10.0007 9.99947C10.9357 9.99947 11.8496 9.72222 12.627 9.20278C13.4044 8.68334 14.0103 7.94504 14.3681 7.08124C14.7259 6.21745 14.8196 5.26695 14.6372 4.34995C14.4547 3.43295 14.0045 2.59063 13.3434 1.92951C12.6823 1.26839 11.84 0.81816 10.923 0.635757C10.006 0.453354 9.05546 0.54697 8.19166 0.904766C7.32787 1.26256 6.58957 1.86847 6.07013 2.64586C5.55069 3.42326 5.27344 4.33723 5.27344 5.2722C5.27469 6.52556 5.77314 7.72723 6.65941 8.6135C7.54567 9.49976 8.74734 9.99821 10.0007 9.99947ZM10.0007 2.12068C10.624 2.12068 11.2333 2.30551 11.7516 2.65181C12.2699 2.9981 12.6738 3.4903 12.9123 4.06616C13.1509 4.64203 13.2133 5.27569 13.0917 5.88702C12.9701 6.49836 12.6699 7.05991 12.2292 7.50065C11.7884 7.9414 11.2269 8.24155 10.6155 8.36315C10.0042 8.48476 9.37054 8.42235 8.79468 8.18382C8.21881 7.94528 7.72661 7.54135 7.38032 7.02308C7.03403 6.50482 6.8492 5.89551 6.8492 5.2722C6.8492 4.43636 7.18123 3.63476 7.77225 3.04374C8.36328 2.45271 9.16488 2.12068 10.0007 2.12068Z" fill="white" />
-                                <path d="M10.0011 11.5762C8.12108 11.5783 6.31869 12.326 4.98934 13.6554C3.65999 14.9847 2.91224 16.7871 2.91016 18.6671C2.91016 18.876 2.99316 19.0764 3.14092 19.2242C3.28868 19.372 3.48908 19.455 3.69803 19.455C3.90699 19.455 4.10739 19.372 4.25515 19.2242C4.4029 19.0764 4.48591 18.876 4.48591 18.6671C4.48591 17.2044 5.06697 15.8016 6.10126 14.7673C7.13555 13.733 8.53835 13.1519 10.0011 13.1519C11.4638 13.1519 12.8666 13.733 13.9009 14.7673C14.9352 15.8016 15.5162 17.2044 15.5162 18.6671C15.5162 18.876 15.5992 19.0764 15.747 19.2242C15.8947 19.372 16.0951 19.455 16.3041 19.455C16.513 19.455 16.7134 19.372 16.8612 19.2242C17.009 19.0764 17.092 18.876 17.092 18.6671C17.0899 16.7871 16.3421 14.9847 15.0128 13.6554C13.6834 12.326 11.881 11.5783 10.0011 11.5762Z" fill="white" />
-                            </g>
-                            <defs>
-                                <clipPath id="clip0_13487_13661">
-                                    <rect width="18.9091" height="18.9091" fill="white" transform="translate(0.546875 0.544922)" />
-                                </clipPath>
-                            </defs>
-                        </svg>
+            </Link>
+            <div
+                style={{
+                    marginTop: "14px",
+                    marginLeft: "10px",
+                    borderRadius: "999px",
+                    border: "1px solid rgba(211,231,255,0.32)",
+                    background: "rgba(255,255,255,0.10)",
+                    color: "#e8f1ff",
+                    fontSize: "12px",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    gap: "8px",
+                    padding: "6px 12px",
+                    fontWeight: 600
+                }}
+            >
+                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#61f2a2", boxShadow: "0 0 0 4px rgba(97,242,162,0.18)" }}></span>
+                Workspace Active
+            </div>
+            <div
+                className="user-box"
+                style={{
+                    borderRadius: "16px",
+                    padding: "14px",
+                    marginTop: "16px",
+                    background: "rgba(255,255,255,0.08)",
+                    border: "1px solid rgba(193,218,255,0.2)"
+                }}
+            >
+                <p className="fw-6" style={{ color: "rgba(255,255,255,0.85)", marginBottom: "10px" }}>Profile</p>
+                <div className="user" style={{ alignItems: "center" }}>
+                    <div
+                        className="icon-box"
+                        style={{
+                            background: "linear-gradient(145deg, rgba(255,255,255,0.28), rgba(255,255,255,0.12))",
+                            border: "1px solid rgba(255,255,255,0.28)",
+                            width: "48px",
+                            height: "48px",
+                            borderRadius: "14px",
+                            fontWeight: 800,
+                            color: "#fff",
+                            fontSize: "15px"
+                        }}
+                    >
+                        {initials}
                     </div>
                     <div className="content">
-                        <div className="caption-2 text">{userData?.role}</div>
-                        <div className="text-white fw-6">
-                            {userData?.email && (
+                        <div className="caption-2 text" style={{ color: "rgba(255,255,255,0.78)" }}>{userRole}</div>
+                        <div className="text-white fw-6" style={{ maxWidth: "145px" }}>
+                            {userEmail && (
                                 <Tooltip title={userData.email}>
                                     <span>
                                         {userData.email.split("@")[0] + "@..."}
@@ -62,20 +133,41 @@ const DashboardSidebar = () => {
                     </div>
                 </div>
             </div>
+            <div
+                style={{
+                    marginTop: "12px",
+                    marginBottom: "10px",
+                    borderRadius: "14px",
+                    background: "rgba(10, 29, 63, 0.38)",
+                    border: "1px solid rgba(176,207,255,0.20)",
+                    padding: "10px 12px",
+                    color: "rgba(255,255,255,0.92)"
+                }}
+            >
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "5px" }}>
+                    <span style={{ fontSize: "12px", opacity: 0.8 }}>Plan</span>
+                    <span style={{ fontSize: "11px", background: "rgba(97,242,162,0.20)", border: "1px solid rgba(97,242,162,0.5)", color: "#b7ffd7", borderRadius: "999px", padding: "2px 8px" }}>
+                        Active
+                    </span>
+                </div>
+                <div style={{ fontSize: "13px", fontWeight: 700 }}>Professional Suite</div>
+            </div>
             <div className="menu-box">
-                <div className="title fw-6">Menu</div>
+                <div className="title fw-6" style={{ color: "rgba(255,255,255,0.70)", marginBottom: "10px", textTransform: "uppercase", letterSpacing: "0.08em", fontSize: "12px" }}>Workspace Menu</div>
                 <ul className="box-menu-dashboard">
-                    <li className={`nav-menu-item ${isActive('/dashboard') ? 'active' : ''}`}>
-                        <Link className="nav-menu-link" to="/dashboard">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g opacity="0.2">
-                                    <path d="M6.75682 9.35156V15.64" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M11.0342 6.34375V15.6412" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path d="M15.2412 12.6758V15.6412" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M15.2939 1.83398H6.70346C3.70902 1.83398 1.83203 3.95339 1.83203 6.95371V15.0476C1.83203 18.0479 3.70029 20.1673 6.70346 20.1673H15.2939C18.2971 20.1673 20.1654 18.0479 20.1654 15.0476V6.95371C20.1654 3.95339 18.2971 1.83398 15.2939 1.83398Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </g>
-                            </svg>
-                            Dashboard
+                    <li className={`nav-menu-item ${isActive('/dashboard') ? 'active' : ''}`} style={getItemStyle(isActive('/dashboard'))}>
+                        <Link className="nav-menu-link" to="/dashboard" style={getLinkStyle(isActive('/dashboard'))}>
+                            <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <span style={getIconBadgeStyle("#5AA1FF", isActive('/dashboard'))}>
+                                    <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M6.75682 9.35156V15.64" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M11.0342 6.34375V15.6412" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path d="M15.2412 12.6758V15.6412" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M15.2939 1.83398H6.70346C3.70902 1.83398 1.83203 3.95339 1.83203 6.95371V15.0476C1.83203 18.0479 3.70029 20.1673 6.70346 20.1673H15.2939C18.2971 20.1673 20.1654 18.0479 20.1654 15.0476V6.95371C20.1654 3.95339 18.2971 1.83398 15.2939 1.83398Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </span>
+                                Dashboard
+                            </span>
                         </Link>
                     </li>
 
@@ -91,37 +183,43 @@ const DashboardSidebar = () => {
                             Property Management
                         </Link>
                     </li> */}
-                    <li className={`nav-menu-item ${isReportManagementActive ? 'active' : ''}`}>
-                        <Link className="nav-menu-link" to="/dashboard/report-management">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g opacity="0.2">
-                                    <path d="M16.4076 8.11328L12.3346 11.4252C11.5651 12.0357 10.4824 12.0357 9.71285 11.4252L5.60547 8.11328" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M15.4985 19.25C18.2864 19.2577 20.1654 16.9671 20.1654 14.1518V7.85584C20.1654 5.04059 18.2864 2.75 15.4985 2.75H6.49891C3.711 2.75 1.83203 5.04059 1.83203 7.85584V14.1518C1.83203 16.9671 3.711 19.2577 6.49891 19.25H15.4985Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                </g>
-                            </svg>
-                            Report Management
+                    <li className={`nav-menu-item ${isReportManagementActive ? 'active' : ''}`} style={getItemStyle(isReportManagementActive)}>
+                        <Link className="nav-menu-link" to="/dashboard/report-management" style={getLinkStyle(isReportManagementActive)}>
+                            <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <span style={getIconBadgeStyle("#58D0F2", isReportManagementActive)}>
+                                    <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M16.4076 8.11328L12.3346 11.4252C11.5651 12.0357 10.4824 12.0357 9.71285 11.4252L5.60547 8.11328" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M15.4985 19.25C18.2864 19.2577 20.1654 16.9671 20.1654 14.1518V7.85584C20.1654 5.04059 18.2864 2.75 15.4985 2.75H6.49891C3.711 2.75 1.83203 5.04059 1.83203 7.85584V14.1518C1.83203 16.9671 3.711 19.2577 6.49891 19.25H15.4985Z" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </span>
+                                Report Management
+                            </span>
                         </Link>
                     </li>
 
-                    <li className={`nav-menu-item ${isActive('/dashboard/subscription') ? 'active' : ''}`}>
-                        <Link className="nav-menu-link" to="/dashboard/subscription">
-                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g opacity="0.2">
-                                    <path d="M19.5 3H4.5C4.10218 3 3.72064 3.15804 3.43934 3.43934C3.15804 3.72064 3 4.10218 3 4.5V19.5C3 19.8978 3.15804 20.2794 3.43934 20.5607C3.72064 20.842 4.10218 21 4.5 21H19.5C19.8978 21 20.2794 20.842 20.5607 20.5607C20.842 20.2794 21 19.8978 21 19.5V4.5C21 4.10218 20.842 3.72064 20.5607 3.43934C20.2794 3.15804 19.8978 3 19.5 3ZM19.5 19.5H4.5V4.5H19.5V19.5ZM16.5 12C16.5 12.1989 16.421 12.3897 16.2803 12.5303C16.1397 12.671 15.9489 12.75 15.75 12.75H12.75V15.75C12.75 15.9489 12.671 16.1397 12.5303 16.2803C12.3897 16.421 12.1989 16.5 12 16.5C11.8011 16.5 11.6103 16.421 11.4697 16.2803C11.329 16.1397 11.25 15.9489 11.25 15.75V12.75H8.25C8.05109 12.75 7.86032 12.671 7.71967 12.5303C7.57902 12.3897 7.5 12.1989 7.5 12C7.5 11.8011 7.57902 11.6103 7.71967 11.4697C7.86032 11.329 8.05109 11.25 8.25 11.25H11.25V8.25C11.25 8.05109 11.329 7.86032 11.4697 7.71967C11.6103 7.57902 11.8011 7.5 12 7.5C12.1989 7.5 12.3897 7.57902 12.5303 7.71967C12.671 7.86032 12.75 8.05109 12.75 8.25V11.25H15.75C15.9489 11.25 16.1397 11.329 16.2803 11.4697C16.421 11.6103 16.5 11.8011 16.5 12Z" fill="#F1FAEE" />
-                                </g>
-                            </svg>
-                            Subscription
+                    <li className={`nav-menu-item ${isActive('/dashboard/subscription') ? 'active' : ''}`} style={getItemStyle(isActive('/dashboard/subscription'))}>
+                        <Link className="nav-menu-link" to="/dashboard/subscription" style={getLinkStyle(isActive('/dashboard/subscription'))}>
+                            <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <span style={getIconBadgeStyle("#7A86FF", isActive('/dashboard/subscription'))}>
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19.5 3H4.5C4.10218 3 3.72064 3.15804 3.43934 3.43934C3.15804 3.72064 3 4.10218 3 4.5V19.5C3 19.8978 3.15804 20.2794 3.43934 20.5607C3.72064 20.842 4.10218 21 4.5 21H19.5C19.8978 21 20.2794 20.842 20.5607 20.5607C20.842 20.2794 21 19.8978 21 19.5V4.5C21 4.10218 20.842 3.72064 20.5607 3.43934C20.2794 3.15804 19.8978 3 19.5 3ZM19.5 19.5H4.5V4.5H19.5V19.5ZM16.5 12C16.5 12.1989 16.421 12.3897 16.2803 12.5303C16.1397 12.671 15.9489 12.75 15.75 12.75H12.75V15.75C12.75 15.9489 12.671 16.1397 12.5303 16.2803C12.3897 16.421 12.1989 16.5 12 16.5C11.8011 16.5 11.6103 16.421 11.4697 16.2803C11.329 16.1397 11.25 15.9489 11.25 15.75V12.75H8.25C8.05109 12.75 7.86032 12.671 7.71967 12.5303C7.57902 12.3897 7.5 12.1989 7.5 12C7.5 11.8011 7.57902 11.6103 7.71967 11.4697C7.86032 11.329 8.05109 11.25 8.25 11.25H11.25V8.25C11.25 8.05109 11.329 7.86032 11.4697 7.71967C11.6103 7.57902 11.8011 7.5 12 7.5C12.1989 7.5 12.3897 7.57902 12.5303 7.71967C12.671 7.86032 12.75 8.05109 12.75 8.25V11.25H15.75C15.9489 11.25 16.1397 11.329 16.2803 11.4697C16.421 11.6103 16.5 11.8011 16.5 12Z" fill="#F1FAEE" />
+                                    </svg>
+                                </span>
+                                Subscription
+                            </span>
                         </Link>
                     </li>
-                    <li className={`nav-menu-item ${isActive('/dashboard/profile-management') ? 'active' : ''}`}>
-                        <Link className="nav-menu-link" to="/dashboard/profile-management">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <g opacity="0.2">
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M10.987 14.0684C7.44168 14.0684 4.41406 14.6044 4.41406 16.7511C4.41406 18.8979 7.42247 19.4531 10.987 19.4531C14.5323 19.4531 17.5591 18.9162 17.5591 16.7703C17.5591 14.6245 14.5515 14.0684 10.987 14.0684Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                    <path fillRule="evenodd" clipRule="evenodd" d="M10.9866 11.0056C13.3132 11.0056 15.1989 9.11897 15.1989 6.79238C15.1989 4.46579 13.3132 2.58008 10.9866 2.58008C8.66005 2.58008 6.77346 4.46579 6.77346 6.79238C6.7656 9.11111 8.6391 10.9977 10.957 11.0056H10.9866Z" stroke="#F1FAEE" strokeWidth="1.42857" strokeLinecap="round" strokeLinejoin="round" />
-                                </g>
-                            </svg>
-                            Profile Management
+                    <li className={`nav-menu-item ${isActive('/dashboard/profile-management') ? 'active' : ''}`} style={getItemStyle(isActive('/dashboard/profile-management'))}>
+                        <Link className="nav-menu-link" to="/dashboard/profile-management" style={getLinkStyle(isActive('/dashboard/profile-management'))}>
+                            <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <span style={getIconBadgeStyle("#A38BFF", isActive('/dashboard/profile-management'))}>
+                                    <svg width="18" height="18" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M10.987 14.0684C7.44168 14.0684 4.41406 14.6044 4.41406 16.7511C4.41406 18.8979 7.42247 19.4531 10.987 19.4531C14.5323 19.4531 17.5591 18.9162 17.5591 16.7703C17.5591 14.6245 14.5515 14.0684 10.987 14.0684Z" stroke="#F1FAEE" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                        <path fillRule="evenodd" clipRule="evenodd" d="M10.9866 11.0056C13.3132 11.0056 15.1989 9.11897 15.1989 6.79238C15.1989 4.46579 13.3132 2.58008 10.9866 2.58008C8.66005 2.58008 6.77346 4.46579 6.77346 6.79238C6.7656 9.11111 8.6391 10.9977 10.957 11.0056H10.9866Z" stroke="#F1FAEE" strokeWidth="1.42857" strokeLinecap="round" strokeLinejoin="round" />
+                                    </svg>
+                                </span>
+                                Profile Management
+                            </span>
                         </Link>
                     </li>
                     {/*  <li className={`nav-menu-item ${isActive('/dashboard/message') ? 'active' : ''}`}>
@@ -147,14 +245,29 @@ const DashboardSidebar = () => {
                             Add Property
                         </Link>
                     </li> */}
-                    <li className="nav-menu-item">
+                    <li className="nav-menu-item" style={{ marginTop: "6px" }}>
                         <button
                             type="button"
                             className="nav-menu-link"
                             onClick={showLogoutConfirm}
-                            style={{ width: '100%', background: 'transparent', border: 'none', textAlign: 'left' }}
+                            style={{
+                                width: '100%',
+                                background: 'rgba(255,255,255,0.08)',
+                                border: '1px solid rgba(255,255,255,0.22)',
+                                borderRadius: '12px',
+                                textAlign: 'left',
+                                color: '#fff',
+                                padding: '12px 14px',
+                                minHeight: '48px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '10px',
+                                fontWeight: 600
+                            }}
                         >
-                            <IoLogOutOutline size={20} />
+                            <span style={getIconBadgeStyle("#FF8C7B", false)}>
+                                <IoLogOutOutline size={18} />
+                            </span>
                             Logout
                         </button>
                     </li>
